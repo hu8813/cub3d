@@ -2,8 +2,8 @@
 
 static void	map_split2(t_main *main, int height, int width, char *buffer)
 {
-	int		y;
-	int		x;
+	int	y;
+	int	x;
 
 	y = 0;
 	while (y < height)
@@ -31,9 +31,10 @@ static void	map_split2(t_main *main, int height, int width, char *buffer)
 
 static void	map_split(char *buffer, t_main *main)
 {
-	int		height;
-	int		width;
-	int		i;
+	int	height;
+	int	width;
+	int	i;
+
 
 	main->exitcount = 0;
 	main->playercount = 0;
@@ -55,19 +56,46 @@ static void	map_split(char *buffer, t_main *main)
 	main->map->y = height;
 }
 
+char	*get_next_line(int fd)
+{
+	char	*string;
+	char	*copy;
+	char	*new;
+	int		i;
+
+	string = (char *)calloc(1, 10000);
+	copy = string;
+	i = 0;
+	while (i < 10000 && read(fd, copy, 1) > 0 && *copy++ != '\n')
+		i++;
+	if (copy > string)
+	{
+		*copy = 0;
+		new = (char *)malloc(sizeof * new * (ft_strlen(string) + 1));
+		i = -1;
+		while (string[++i])
+			new[i] = string[i];
+		new[i] = 0;
+		free(string);
+		return (new);
+	}
+	else
+		return (free(string), NULL);
+}
+
 char	**map_init(char *path, t_main *main)
 {
-	char	*buffer;
-	int		i;
-	int		bytes;
-	int		fd;
+	char *buffer;
+	int i;
+	int bytes;
+	int fd;
 
-	buffer = ft_calloc(10000, sizeof(char));
-    if (!buffer)
-        ft_error("Error\nMalloc failed", main);
 	fd = open(path, O_RDONLY);
-    if (fd == -1)
-        ft_error("Error\nMap file not found", main);
+	if (fd == -1)
+		ft_error("Error\nMap file not found", main);
+	buffer = get_next_line(fd);
+	while (!buffer)
+		buffer = get_next_line(fd);
 	i = 0;
 	bytes = 1;
 	buffer[0] = '\0';
@@ -75,11 +103,11 @@ char	**map_init(char *path, t_main *main)
 	{
 		bytes = read(fd, &buffer[i++], 1);
 		if (bytes == -1)
-			ft_destroy(main);
+			ft_error("Error\nRead failed\n", main);
 	}
 	buffer[i] = '\0';
 	map_split(buffer, main);
-	free(buffer);
+	//free(buffer);
 	close(fd);
 	return (main->map->map);
 }

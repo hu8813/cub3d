@@ -6,6 +6,7 @@
 # include <errno.h> 	/* errno */
 # include <stdlib.h> 	/* exit */
 # include <unistd.h> 	/* write, access */
+# include <string.h> 	/* strerror */
 
 # ifdef __APPLE__
 #  include "../minilibx-mac/mlx.h"

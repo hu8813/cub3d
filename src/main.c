@@ -52,6 +52,6 @@ t_main		*main;
 	}
 	main = main_init(argv[1]);
 
-	ft_map_check(main);
+	//ft_map_check(main);
 	//check_files(main, argv[1]);
 }

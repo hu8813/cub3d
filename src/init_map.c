@@ -29,22 +29,72 @@ static void	map_split2(t_main *main, int height, int width, char *buffer)
 	}
 }
 
+static int pre_check(char *buffer)
+{
+	if (!ft_strnstr(buffer, "NO ", ft_strlen(buffer)) || !ft_strnstr(buffer, "SO ", ft_strlen(buffer))
+		|| !ft_strnstr(buffer, "WE ", ft_strlen(buffer)) || !ft_strnstr(buffer, "EA ", ft_strlen(buffer))	
+		|| !ft_strnstr(buffer, "C ", ft_strlen(buffer)) || !ft_strnstr(buffer, "F ", ft_strlen(buffer)))
+		return (0);
+	return (1);
+}
+
+static char	*get_texture(char *buffer, t_main *main, int *pos)
+{
+	int		i;
+	int		k;
+	char	*tmp;
+
+	i = 0;
+	while (buffer[i] && (buffer[i] == ' ' || buffer[i] == '\t'))
+		i++;
+	k = ft_strchr_idx(&buffer[i], '\n');
+	pos+= k;
+	if (k == -1 || k == i)
+		return (NULL);
+	k--;
+	while (buffer[k] && k > i && buffer[k] != '\n' && (buffer[k] == ' ' || buffer[k] == '\t'))
+		k--;
+	tmp = ft_substr(&buffer[i], i, k + 1);
+
+	printf ("tmp = %s\n", tmp);
+	if (access(tmp, F_OK | R_OK) == -1)
+		return (NULL);
+	else
+		return (tmp);
+	(void)main;
+}
+
 static void	map_split(char *buffer, t_main *main)
 {
 	int	height;
 	int	width;
 	int	i;
-	char *tmp;
+	//char *tmp;
 
 	main->exitcount = 0;
 	main->playercount = 0;
 	main->coincount = 0;
 	height = 0;
 	i = 0;
-	while (buffer[i] != 0)
-		if (buffer[i++] == '\n')
-			height++;
+	if (!pre_check(buffer))
+		ft_error("Error\nMissing texture or color", main);
 	
+	while (buffer[i] != 0)
+		{
+			if (!ft_strncmp(&buffer[i], "NO ", 3))
+				main->north = get_texture(&buffer[i + 3], main, &i);
+			else if (!ft_strncmp(&buffer[i], "NO ", 3))
+				main->north = get_texture(&buffer[i + 3], main, &i);
+			else if (!ft_strncmp(&buffer[i], "SO ", 3))
+				main->north = get_texture(&buffer[i + 3], main, &i);
+			else if (!ft_strncmp(&buffer[i], "WO ", 3))
+				main->north = get_texture(&buffer[i + 3], main, &i);
+			else if (!ft_strncmp(&buffer[i], "EA ", 3))
+				main->north = get_texture(&buffer[i + 3], main, &i);
+			
+			i++;
+			height++;
+		}
 	if (buffer[i - 1] != '\n')
 		height++;
 	i = 0;
@@ -101,8 +151,10 @@ char	**map_init(int fd, t_main *main)
 		if (bytes == -1)
 			ft_error("Error\nRead failed\n", main);
 	}
+	if (!buffer[0])
+		ft_error("Error\nEmpty map\n", main);
 	map_split(buffer, main);
-	//free(buffer);
+	free(buffer);
 	close(fd);
 	return (main->map->map);
 }

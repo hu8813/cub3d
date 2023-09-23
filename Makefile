@@ -6,7 +6,7 @@ MLX	 = -lXext -lX11 -lm #-lmlx
 DIR_SRC = src
 DIR_OBJ = obj
 
-SRC	 = 	main.c	parse.c utils.c init_map.c check_map.c free.c
+SRC	 = 	main.c	parse.c utils.c init_map.c check_map.c free.c utils2.c
 OBJ	 = $(SRC:%.c=$(DIR_OBJ)/%.o)
 DEP	 = $(SRC:%.c=$(DIR_OBJ)/%.d)
 

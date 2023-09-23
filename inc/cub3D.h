@@ -60,6 +60,10 @@ typedef struct s_main
 	int				exitcount;
 	int				tmp;
 	int				exitflag;
+	char			*north;
+	char			*west;
+	char			*east;
+	char			*south;
 	t_map			*map;
 	t_img			*img;
 }					t_main;
@@ -83,5 +87,9 @@ void        ft_map_check(t_main *main);
 void    	ft_check_valid_map_path(t_main *main);
 void    	ft_error(char *errorcode, t_main *main);
 int     	ft_destroy(t_main *main);
+char		*ft_strnstr(const char *big, const char *little, size_t len);
+int			ft_strchr_idx(const char *s, int c);
+char		*ft_substr(char const *s, unsigned int start, size_t len);
+size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 
 #endif

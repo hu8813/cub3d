@@ -81,15 +81,17 @@ static void	map_split(char *buffer, t_main *main)
 	
 	while (buffer[i] != 0)
 		{
-			if (!ft_strncmp(&buffer[i], "NO ", 3))
+			if (!ft_strncmp(&buffer[i], "\0NO ", 4) || !ft_strncmp(&buffer[i], "\nNO ", 4))
+				main->north = get_texture(&buffer[i + 4], main, &i);
+			else if (!ft_strncmp(&buffer[i], "\0SO ", 4) || !ft_strncmp(&buffer[i], "\nSO ", 4))
+				main->north = get_texture(&buffer[i + 4], main, &i);
+			else if (!ft_strncmp(&buffer[i], "\0WE ", 4) || !ft_strncmp(&buffer[i], "\nWE ", 4))
+				main->north = get_texture(&buffer[i + 4], main, &i);
+			else if (!ft_strncmp(&buffer[i], "\0EA ", 4) || !ft_strncmp(&buffer[i], "\nEA ", 4))
+				main->north = get_texture(&buffer[i + 4], main, &i);
+			else if (!ft_strncmp(&buffer[i], "\0F ", 3) || !ft_strncmp(&buffer[i], "\nF ", 3))
 				main->north = get_texture(&buffer[i + 3], main, &i);
-			else if (!ft_strncmp(&buffer[i], "NO ", 3))
-				main->north = get_texture(&buffer[i + 3], main, &i);
-			else if (!ft_strncmp(&buffer[i], "SO ", 3))
-				main->north = get_texture(&buffer[i + 3], main, &i);
-			else if (!ft_strncmp(&buffer[i], "WO ", 3))
-				main->north = get_texture(&buffer[i + 3], main, &i);
-			else if (!ft_strncmp(&buffer[i], "EA ", 3))
+			else if (!ft_strncmp(&buffer[i], "\0C ", 3) || !ft_strncmp(&buffer[i], "\nC ", 3))
 				main->north = get_texture(&buffer[i + 3], main, &i);
 			
 			i++;

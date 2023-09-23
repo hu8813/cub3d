@@ -65,7 +65,7 @@ typedef struct s_main
 }					t_main;
 
 //t_main		*main_init(t_main *main, char *path);
-char		**map_init(char *path, t_main *main);
+char		**map_init(int fd, t_main *main);
 void		ft_map_check(t_main *main);
 void		draw_map(t_main *main);
 void		xpm_to_img(t_main *main);

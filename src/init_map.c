@@ -34,7 +34,7 @@ static void	map_split(char *buffer, t_main *main)
 	int	height;
 	int	width;
 	int	i;
-
+	char *tmp;
 
 	main->exitcount = 0;
 	main->playercount = 0;
@@ -44,6 +44,7 @@ static void	map_split(char *buffer, t_main *main)
 	while (buffer[i] != 0)
 		if (buffer[i++] == '\n')
 			height++;
+	
 	if (buffer[i - 1] != '\n')
 		height++;
 	i = 0;
@@ -83,29 +84,23 @@ char	*get_next_line(int fd)
 		return (free(string), NULL);
 }
 
-char	**map_init(char *path, t_main *main)
+char	**map_init(int fd, t_main *main)
 {
 	char *buffer;
 	int i;
 	int bytes;
-	int fd;
 
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		ft_error("Error\nMap file not found", main);
-	buffer = get_next_line(fd);
-	while (!buffer)
-		buffer = get_next_line(fd);
+	buffer = ft_calloc(10000, sizeof(char));
+	if (!buffer)
+		ft_error("Error\nMalloc failed", main);
 	i = 0;
 	bytes = 1;
-	buffer[0] = '\0';
 	while (bytes)
 	{
 		bytes = read(fd, &buffer[i++], 1);
 		if (bytes == -1)
 			ft_error("Error\nRead failed\n", main);
 	}
-	buffer[i] = '\0';
 	map_split(buffer, main);
 	//free(buffer);
 	close(fd);

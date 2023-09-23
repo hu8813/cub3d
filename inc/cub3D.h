@@ -64,6 +64,8 @@ typedef struct s_main
 	char			*west;
 	char			*east;
 	char			*south;
+	int				floor[3];
+	int				ceil[3];
 	t_map			*map;
 	t_img			*img;
 }					t_main;
@@ -91,5 +93,6 @@ char		*ft_strnstr(const char *big, const char *little, size_t len);
 int			ft_strchr_idx(const char *s, int c);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
+int			ft_atoi(const char *nptr);
 
 #endif

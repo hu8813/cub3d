@@ -28,6 +28,17 @@ t_main	*main_init(char *path)
 	main->img = ft_calloc(1, sizeof(t_img));
 	if (!main->img)
 		ft_error("Error\nMalloc failed", main);
+	main->floor[0] = -1;
+	main->floor[1] = -1;
+	main->floor[2] = -1;
+	main->ceil[0] = -1;
+	main->ceil[1] = -1;
+	main->ceil[2] = -1;
+	main->north = NULL;
+	main->south = NULL;
+	main->west = NULL;
+	main->east = NULL;
+
 	main->map->map = map_init(fd, main);
 	
 	//main->mlx = mlx_init();

@@ -38,6 +38,43 @@ static int pre_check(char *buffer)
 	return (1);
 }
 
+static void get_color(char *buffer, int rgb[3], int *k)
+{
+    int i = 0;
+    int j = 0;
+    int component = 0;
+	int pos = ft_strchr_idx(&buffer[i], '\n');
+
+	k += pos;
+	if (pos == -1 || pos == 0 || buffer[i] == '\n')
+		return ;	
+    char *tmp = malloc(pos + 1);
+    if (tmp == NULL) {
+       ft_error("Error\nMalloc failed", NULL);
+    }
+
+    while (buffer[i]) {
+        if (buffer[i] == ',' || buffer[i] == '\n') {
+            tmp[j] = '\0';
+            rgb[component] = atoi(tmp);
+			memset(tmp, 0, 10);
+            j = 0;
+            component++;
+
+            if (component == 3) {
+                free(tmp);
+                return ;
+            }
+        } else if (buffer[i] != ' ' && buffer[i] != '\t') {
+            tmp[j] = buffer[i];
+            j++;
+        }
+
+        i++;
+    }
+    free(tmp);
+}
+
 static char	*get_texture(char *buffer, t_main *main, int *pos)
 {
 	int		i;
@@ -45,20 +82,21 @@ static char	*get_texture(char *buffer, t_main *main, int *pos)
 	char	*tmp;
 
 	i = 0;
-	while (buffer[i] && (buffer[i] == ' ' || buffer[i] == '\t'))
-		i++;
 	k = ft_strchr_idx(&buffer[i], '\n');
+	while (buffer[i] && i < k && buffer[i] != '\n'  && (buffer[i] == ' ' || buffer[i] == '\t'))
+		i++;
 	pos+= k;
-	if (k == -1 || k == i)
+	if (k == -1 || k == 0 || buffer[i] == '\n')
 		return (NULL);
 	k--;
-	while (buffer[k] && k > i && buffer[k] != '\n' && (buffer[k] == ' ' || buffer[k] == '\t'))
+	while (buffer[k] && buffer[k] != '\n' && (buffer[k] == ' ' || buffer[k] == '\t'))
 		k--;
-	tmp = ft_substr(&buffer[i], i, k + 1);
-
-	printf ("tmp = %s\n", tmp);
+	tmp = ft_substr(buffer, i, k - i + 1);
 	if (access(tmp, F_OK | R_OK) == -1)
-		return (NULL);
+		{
+			free(tmp);
+			return (NULL);
+		}
 	else
 		return (tmp);
 	(void)main;
@@ -69,6 +107,7 @@ static void	map_split(char *buffer, t_main *main)
 	int	height;
 	int	width;
 	int	i;
+	int err;
 	//char *tmp;
 
 	main->exitcount = 0;
@@ -76,6 +115,7 @@ static void	map_split(char *buffer, t_main *main)
 	main->coincount = 0;
 	height = 0;
 	i = 0;
+	err = 0;
 	if (!pre_check(buffer))
 		ft_error("Error\nMissing texture or color", main);
 	
@@ -84,19 +124,21 @@ static void	map_split(char *buffer, t_main *main)
 			if (!ft_strncmp(&buffer[i], "\0NO ", 4) || !ft_strncmp(&buffer[i], "\nNO ", 4))
 				main->north = get_texture(&buffer[i + 4], main, &i);
 			else if (!ft_strncmp(&buffer[i], "\0SO ", 4) || !ft_strncmp(&buffer[i], "\nSO ", 4))
-				main->north = get_texture(&buffer[i + 4], main, &i);
+				main->south = get_texture(&buffer[i + 4], main, &i);
 			else if (!ft_strncmp(&buffer[i], "\0WE ", 4) || !ft_strncmp(&buffer[i], "\nWE ", 4))
-				main->north = get_texture(&buffer[i + 4], main, &i);
+				main->west = get_texture(&buffer[i + 4], main, &i);
 			else if (!ft_strncmp(&buffer[i], "\0EA ", 4) || !ft_strncmp(&buffer[i], "\nEA ", 4))
-				main->north = get_texture(&buffer[i + 4], main, &i);
+				main->east = get_texture(&buffer[i + 4], main, &i);
 			else if (!ft_strncmp(&buffer[i], "\0F ", 3) || !ft_strncmp(&buffer[i], "\nF ", 3))
-				main->north = get_texture(&buffer[i + 3], main, &i);
+				get_color(&buffer[i + 3], main->floor, &i);
 			else if (!ft_strncmp(&buffer[i], "\0C ", 3) || !ft_strncmp(&buffer[i], "\nC ", 3))
-				main->north = get_texture(&buffer[i + 3], main, &i);
+				get_color(&buffer[i + 3], main->ceil, &i);
 			
 			i++;
 			height++;
 		}
+	if (main->floor[0] == -1 || main->ceil[0] == -1 || main->floor[1] == -1 || main->ceil[1] == -1 || main->floor[2] == -1 || main->ceil[2] == -1 || !main->north || !main->south || !main->west || !main->east)
+		ft_error("Error\nMissing texture or color", main);
 	if (buffer[i - 1] != '\n')
 		height++;
 	i = 0;

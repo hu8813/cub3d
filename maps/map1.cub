@@ -1,17 +1,9 @@
 \n
 WE                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ./images/WE.xpm         
 NO ./images/NO.xpm
-<<<<<<< HEAD:tmp/maps/map1.cub
-SO ./images/SO.xpm
-WE ./images/WE.xpm
-EA ./images/EA.xpm
-F 00,153,15
-C 255,255,265
-=======
->>>>>>> 6bb75414e11f2d4a9ddc36fe8222d85c21ad508c:maps/map1.cub
 
 
-           WE 
+WE 
 
 EA      ./images/EA.xpm
 SO  ./images/SO.xpm rhwehwehwrh

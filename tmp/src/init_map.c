@@ -73,8 +73,8 @@ static void get_color(char *buffer, int rgb[3], int *k)
         i++;
     }
     free(tmp);
-	(void) pos;
-	(void) k;
+	(void)pos;
+	(void)k;
 }
 
 static char	*get_texture(char *buffer, t_main *main, int *pos)

@@ -3,14 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   put_img.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:13:36 by huaydin           #+#    #+#             */
-/*   Updated: 2023/09/27 13:26:12 by eelasam          ###   ########.fr       */
+/*   Updated: 2023/09/27 22:13:44 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
+
+/* Determines the texture color for a specific position on the screen.
+The texture and shading are selected based on the ray's direction
+and intersection point. It also accounts for the direction from which
+the ray hits a wall to pick the correct texture side. */
+int	put_texture(t_data *g, float start, int line, t_img *texture)
+{
+	int		color;
+	double	x_text;
+	double	x_wall;
+	double	y_text;
+
+	if (g->x_ray > 0 && !g->side)
+		texture = g->east;
+	else if (g->x_ray < 0 && !g->side)
+		texture = g->west;
+	else if (g->y_ray < 0 && g->side)
+		texture = g->north;
+	if (g->side == 0)
+		x_wall = g->y + g->wall * g->y_ray;
+	else
+		x_wall = g->x + g->wall * g->x_ray;
+	x_wall -= floor((x_wall));
+	x_text = (int)(x_wall * (double)(texture->width));
+	if (g->side == 0 && g->x_ray > 0)
+		x_text = texture->width - x_text - 1;
+	else if (g->side == 1 && g->y_ray < 0)
+		x_text = texture->width - x_text - 1;
+	color = start * 256 - g->height * 128 + line * 128;
+	y_text = ((color * texture->height) / line) / 256;
+	color = texture->buf[(int)(y_text * texture->width + x_text)];
+	return (color);
+}
 
 /* Uses the MLX library to load an image from a file. This function 
 is essential for loading different textures used in the game world. 

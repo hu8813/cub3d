@@ -1,10 +1,11 @@
-NO ./img/weird2.xpm
-SO ./img/metal2.xpm
-WE ./img/rock2.xpm
-EA ./img/plank2.xpm
+NO ./img/north.xpm
+SO ./img/south.xpm
+WE ./img/west.xpm
+EA ./img/east.xpm
 
 C 135,206,235
 F 34,139,34
+
 
 111111111111111111111111111111
 111111111000100000000000011111

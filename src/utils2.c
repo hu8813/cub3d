@@ -1,81 +1,65 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/24 18:25:48 by huaydin           #+#    #+#             */
+/*   Updated: 2023/09/27 09:02:00 by huaydin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/cub3D.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+/* checks the R G or B color value if it's between 0-255 
+Validates the input color value (R, G, or B) to ensure it's within the 
+valid range (0-255) and is a numerical value. Returns the number if valid,
+otherwise -1 to indicate an overflow or invalid input.*/
+int	check_overflow(char *str, int num)
 {
-	size_t	i;
-	size_t	j;
+	int		i;
+	char	*tmp;
 
-	if (little[0] == '\0')
-		return ((char *)big);
-	i = 0;
-	while (i < len && big[i])
+	i = -1;
+	tmp = NULL;
+	while (str && str[++i])
 	{
-		j = 0;
-		while (len > (i + j) && big[i + j] == little[j])
-		{
-			if (little[j + 1] == '\0')
-				return ((char *)&big[i]);
-			j++;
-		}
-		i++;
+		if (!ft_isdigit(str[i]) && !ft_isspace(str[i]))
+			return (-1);
 	}
-	return (NULL);
+	tmp = ft_itoa(num);
+	if (!tmp)
+		return (-1);
+	if (ft_strncmp(str, tmp, ft_strlen(str)) != 0)
+	{
+		ft_free_all(NULL, NULL, NULL, tmp);
+		return (-1);
+	}
+	free(tmp);
+	if (num < 0 || num > 255)
+		return (-1);
+	return (num);
 }
 
-int	ft_strchr_idx(const char *s, int c)
+/* finds first occurence of a char in a string, returns index of the found
+character or -1 if not found*/
+int	ft_strchr_idx(char *s, int c)
 {
 	unsigned char	c_unsigned;
 	int				i;
 
 	i = 0;
-	if (!s)
+	if (!s || !s[0])
 		return (-1);
 	c_unsigned = (unsigned char)c;
-	while (s[i])
+	while (s && s[i])
 	{
 		if (s[i] == c_unsigned)
-			return (i);
+			return (free(s), i);
 		i++;
 	}
-	if (c_unsigned == '\0')
-		return (i);
+	if (c == 0)
+		return (free(s), i);
 	return (-1);
-}
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
-{
-	size_t	i;
-	size_t	len;
-
-	i = 0;
-	len = ft_strlen(src);
-	if (size == 0)
-		return (len);
-	while (src[i] && i < size -1)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	if (i < size)
-		dst[i] = '\0';
-	return (len);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char		*str;
-	size_t		strsize;
-
-	if (!s)
-		return (NULL);
-	strsize = ft_strlen(s);
-	if (start >= strsize)
-		start = strsize;
-	if (len > strsize - start)
-		len = strsize - start;
-	str = (char *)malloc(sizeof(char) * len + 1);
-	if (!str)
-		return (NULL);
-	ft_strlcpy(str, &s[start], len + 1);
-	return (str);
 }

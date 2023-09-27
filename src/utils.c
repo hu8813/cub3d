@@ -1,121 +1,107 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eelasam <Ehab@student.42vienna.com>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/20 09:23:22 by huaydin           #+#    #+#             */
+/*   Updated: 2023/09/25 22:40:36 by eelasam          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/cub3D.h"
 
-size_t	ft_strlen(const char *s)
+/* Checks if the input character is a whitespace character (space, tab, newline,
+vertical tab, form feed, carriage return) and returns 1 if true, 0 otherwise.*/
+int	ft_isspace(int c)
 {
-	size_t	length;
-
-	length = 0;
-	while (s[length])
-		length++;
-	return (length);
+	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
+		|| c == '\r');
 }
 
-void	*ft_calloc(size_t count, size_t size)
+/* if 1st parameter is not 0, prints an error message
+if 2nd parameter is not 0, frees the struct */
+void	ft_error(char *errorcode, t_data *data)
 {
-	char	*ptr;
-	size_t	i;
-
-	i = 0;
-	ptr = malloc(count * size);
-	if (!ptr)
-		return (NULL);
-	while (i < count * size)
-	{
-		ptr[i] = 0;
-		i++;
-	}
-	return (ptr);
+	if (errorcode)
+		ft_putendl_fd(errorcode, 2);
+	if (data)
+		ft_exit(data);
+	exit(1);
 }
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	while ((*s1 || *s2) && (n > 0))
-	{
-		if (*s1 != *s2)
-			return ((unsigned char)*s1 - (unsigned char)*s2);
-		n--;
-		s1++;
-		s2++;
-	}
-	return (0);
-}
-
-static int	ft_sizeofn(long m)
+/* if 1st parameter is not 0, frees the string array
+if other 3 parameters are not 0, frees those strings */
+void	ft_free_all(char **s, char *s1, char *s2, char *s3)
 {
 	int	i;
+	int	j;
 
-	i = 1;
-	if (m < 0)
-		i++;
-	while (m > 9 || m < -9)
+	if (s)
 	{
-		if (m < 0)
-			m = -m;
-		m = m / 10;
-		i++;
+		i = 0;
+		j = 0;
+		while (s && s[i])
+			i++;
+		while (j < i && s && s[j])
+		{
+			free(s[j]);
+			j++;
+		}
+		free(s[j]);
+		free(s);
 	}
-	return (i);
+	if (s1 && *s1)
+		free(s1);
+	if (s2 && *s2)
+		free(s2);
+	if (s3 && *s3)
+		free(s3);
 }
 
-char	*ft_itoa(int n)
+/* Frees allocated memory for four image pointers. 
+Ensures each pointer is not NULL before attempting to free it.*/
+void	ft_free_ptr(t_img *s1, t_img *s2, t_img *s3, t_img *s4)
 {
-	char	*ptr;
-	int		len;
-	long	nlong;
-
-	nlong = (long)n;
-	len = ft_sizeofn(nlong);
-	ptr = calloc((len + 1), sizeof(char));
-	if (!ptr)
-		return (NULL);
-	ptr[len] = '\0';
-	if (n == 0)
-		ptr[0] = '0';
-	if (nlong < 0)
-	{
-		ptr[0] = '-';
-		nlong = -nlong;
-	}
-	while (len-- >= 0 && nlong > 0 && ptr[len] != '-')
-	{
-		ptr[len] = nlong % 10 + '0';
-		nlong = nlong / 10;
-	}
-	return (ptr);
+	if (s1)
+		free(s1);
+	if (s2)
+		free(s2);
+	if (s3)
+		free(s3);
+	if (s4)
+		free(s4);
 }
 
-static int	ft_isitspace(char c)
+/* exits and frees whole malloced variables
+Cleans up by destroying any allocated memory and MLX related resources 
+before exiting the program.*/
+int	ft_exit(t_data *g)
 {
-	if (c == ' ' || (c >= '\t' && c <= '\r'))
-		return (1);
-	return (0);
-}
-
-int	ft_atoi(const char *nptr)
-{
-	int			i;
-	long		sign;
-	long long	res;
-
-	res = 0;
-	sign = 1;
-	i = 0;
-	while (ft_isitspace(nptr[i]))
-		i++;
-	if (nptr[i] == '+' || nptr[i] == '-')
+	if (g)
 	{
-		if (nptr[i] == '-')
-			sign = -1;
-		i++;
+		if (g->mlx)
+		{
+			if (g->north && g->north->g)
+				mlx_destroy_image(g->mlx, g->north->g);
+			if (g->east && g->east->g)
+				mlx_destroy_image(g->mlx, g->east->g);
+			if (g->west && g->west->g)
+				mlx_destroy_image(g->mlx, g->west->g);
+			if (g->south && g->south->g)
+				mlx_destroy_image(g->mlx, g->south->g);
+			if (g->win)
+				mlx_destroy_window(g->mlx, g->win);
+			mlx_destroy_display(g->mlx);
+			free(g->mlx);
+			ft_free_ptr(g->north, g->east, g->west, g->south);
+		}
+		if (g->no_path)
+			free(g->no_path);
+		ft_free_all(g->map, g->ea_path, g->we_path, g->so_path);
+		if (g->fd != -1)
+			close(g->fd);
 	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		res = res * 10 + (nptr[i] - '0');
-		i++;
-	}
-	if ((res * sign) < -2147483648)
-		return (0);
-	if ((res * sign) > 2147483647)
-		return (-1);
-	return ((int)(res * sign));
+	exit(0);
 }

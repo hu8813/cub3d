@@ -1,98 +1,125 @@
-#ifndef cub3D
-# define cub3D
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/10 06:57:31 by eelasam           #+#    #+#             */
+/*   Updated: 2023/09/27 19:53:06 by eelasam          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# include <fcntl.h> 	/* open */
-# include <stdio.h> 	/* perror */
-# include <errno.h> 	/* errno */
-# include <stdlib.h> 	/* exit */
-# include <unistd.h> 	/* write, access */
-# include <string.h> 	/* strerror */
+#ifndef CUB3D_H
+# define CUB3D_H
 
-# ifdef __APPLE__
-#  include "../minilibx-mac/mlx.h"
-#  define W_UP 13
-#  define S_DOWN 1
-#  define A_LEFT 0
-#  define D_RIGHT 2
-#  define ESC 53
-# endif
-# ifdef __linux__
-//#  include "../minilibx-linux/mlx.h"
-#  define W_UP 119
-#  define S_DOWN 115
-#  define A_LEFT 97
-#  define D_RIGHT 100
-#  define ESC 65307
-# endif
+# include <stdio.h>
 
-# define PIXEL 64
+/* write, read, */
+# include <unistd.h>
 
-typedef struct s_img
+/* File Manipulation Functions: open (O_CREAT, O_WRONLY, O_APPEND) */
+# include <fcntl.h>
+
+/* sin, cos for trigonometric calculations */
+# include <math.h>
+
+/* malloc, free */
+# include <stdlib.h>
+
+/* mlx library */
+# include <mlx.h>
+
+/* to get keycodes i.e. (XK_w) for w or XK_left for left arroy key */
+# include <X11/keysym.h>
+
+/* ft_isdigit, ft_atoi, ft_itoa, ft_strncmp, ft_split, ft_memset, ft_strlen,
+ft_calloc, ft_putendl_fd, ft_substr, ft_strdup, ft_strjoin */
+# include "../libft/libft.h"
+
+/* angle (instead degrees) to turn when left or right arrow is pressed */
+# define LR_ANGLE 0.04
+
+/* speed of the movement of the player, when w, a, s or d is pressed*/
+# define SPEED 0.06
+
+/**/
+typedef struct s_pic
 {
-	void			*wall;
-	void			*way;
-	void			*coin;
-	void			*exitd;
-	void			*enemy;
-	void			*pr;
-	void			*pl;
-	void			*ple;
-	void			*pu;
-	void			*pd;
-}					t_img;
+	int		width;
+	int		height;
+	void	*mlx;
+	void	*win;
+	void	*g;
+	int		*buf;
+}			t_img;
 
-typedef struct s_map
+/**/
+typedef struct s_data
 {
-	char			**map;
-	int				x;
-	int				y;
-}					t_map;
+	void	*mlx;
+	void	*win;
+	char	**map;
+	int		fd;
+	int		side;
+	int		width;
+	int		height;
+	double	wall;
+	double	x;
+	int		x_map;
+	int		x_step;
+	double	x_camera;
+	double	x_ray;
+	double	x_dir;
+	double	x_plane;
+	double	x_delta;
+	double	x_side;
+	double	y;
+	int		y_map;
+	int		y_step;
+	double	y_ray;
+	double	y_dir;
+	double	y_plane;
+	double	y_delta;
+	double	y_side;
+	char	p_direction;
+	int		key;
+	int		move;
+	char	rotate[3];
+	int		f_color[3];
+	int		c_color[3];
+	t_img	*pic;
+	t_img	*north;
+	t_img	*east;
+	t_img	*west;
+	t_img	*south;
+	char	*no_path;
+	char	*so_path;
+	char	*we_path;
+	char	*ea_path;
+}			t_data;
 
-typedef struct s_main
-{
-	void			*mlx;
-	void			*win;
-	int				p_x;
-	int				p_y;
-	int				coincount;
-	int				movecount;
-	int				playercount;
-	int				exitcount;
-	int				tmp;
-	int				exitflag;
-	char			*north;
-	char			*west;
-	char			*east;
-	char			*south;
-	int				floor[3];
-	int				ceil[3];
-	t_map			*map;
-	t_img			*img;
-}					t_main;
-
-//t_main		*main_init(t_main *main, char *path);
-char		**map_init(int fd, t_main *main);
-void		ft_map_check(t_main *main);
-void		draw_map(t_main *main);
-void		xpm_to_img(t_main *main);
-int			key_event(int key, t_main *main);
-int			render(t_main *main);
-void		write_move_count(t_main *main);
-void		ft_error(char *errorcode, t_main *main);
-void		*ft_calloc(size_t count, size_t size);
-size_t		ft_strlen(const char *s);
-int			ft_strncmp(const char *s1, const char *s2, size_t n);
-char		*ft_itoa(int n);
-int			ft_destroy(t_main *main);
-void        check_files(char *path);
-void        ft_map_check(t_main *main);
-void    	ft_check_valid_map_path(t_main *main);
-void    	ft_error(char *errorcode, t_main *main);
-int     	ft_destroy(t_main *main);
-char		*ft_strnstr(const char *big, const char *little, size_t len);
-int			ft_strchr_idx(const char *s, int c);
-char		*ft_substr(char const *s, unsigned int start, size_t len);
-size_t		ft_strlcpy(char *dst, const char *src, size_t size);
-int			ft_atoi(const char *nptr);
+int			map_split(char *s, t_data *g);
+char		*read_cub_file(int fd);
+int			check_map(char *map, char *p_direction, int i, int count);
+int			check_texture(t_data *data);
+int			parse_args(char *map_file, t_data *data);
+void		get_position(char **map, t_data *cub);
+int			dda(t_data *cub);
+void		key(int key, t_data *cub, double temp);
+t_img		*ft_create_img(t_data *cub, int width, int height, int x);
+int			render(void *param);
+void		set_pos(t_data *cub);
+void		set_colors(t_data *cub);
+int			ft_exit(t_data *cub);
+void		ft_free_all(char **s, char *s1, char *s2, char *s3);
+void		ft_error(char *errorcode, t_data *data);
+int			ft_strchr_idx(char *s, int c);
+int			ft_isspace(int c);
+int			check_overflow(char *str, int num);
+void		get_color(char *s, int rgb[3], int *k);
+int			pre_check(char *s);
+void		flood_fill(char **mapcopy, size_t i, size_t j, int *exit);
+int			check_valid_route(char **map, char *str);
 
 #endif

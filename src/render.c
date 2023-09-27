@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:28:30 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/27 20:18:54 by eelasam          ###   ########.fr       */
+/*   Updated: 2023/09/27 21:13:22 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,14 +127,13 @@ the frame on the screen using MLX. Also handles some input events. */
 int	render(void *param)
 {
 	t_data	*g;
-	// char result[100]; 
+	char result[1000]; 
 
-	// sprintf(result, "x:%f y:%f dir_x:%f dir_y:%f planx:%f plany:%f map_x:%d map_y:%d step_x:%d step_y:%d ray_x:%f ray_y:%f delta_x:%f delta_y:%f side_x:%f side_y:%f length:%f height:%d %d", 
-    //     g->x, g->y, g->dir_x, g->dir_y, g->planx, g->plany, g->map_x, g->map_y, g->step_x, g->step_y, 
-    //      g->ray_x, g->ray_y, g->delta_x, g->delta_y, g->side_x, g->side_y, 
-    //     g->length, g->height);
-	// mlx_string_put(g->mlx, g->win, 10, 10 , 0, result);
 	g = (t_data *)param;
+	sprintf(result, "x:%f y:%f x_dir:%f y_dir:%f x_plane:%f y_plane:%f x_map:%d y_map:%d x_step:%d y_step:%d x_ray:%f y_ray:%f x_delta:%f y_delta:%f x_side:%f y_side:%f wall:%f height:%d",
+    g->x, g->y, g->x_dir, g->y_dir, g->x_plane, g->y_plane, g->x_map, g->y_map, g->x_step, g->y_step,
+    g->x_ray, g->y_ray, g->x_delta, g->y_delta, g->x_side, g->y_side, g->wall, g->height);
+	mlx_string_put(g->mlx, g->win, 10, 10 , 0, result);
 	g->pic = ft_create_img(g, g->width, g->width, 0);
 	if (!g->pic)
 		ft_error("Mlx init img failed", g);

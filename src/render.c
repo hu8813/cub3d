@@ -127,7 +127,13 @@ the frame on the screen using MLX. Also handles some input events. */
 int	render(void *param)
 {
 	t_data	*g;
+	// char result[100]; 
 
+	// sprintf(result, "x:%f y:%f dir_x:%f dir_y:%f planx:%f plany:%f map_x:%d map_y:%d step_x:%d step_y:%d ray_x:%f ray_y:%f delta_x:%f delta_y:%f side_x:%f side_y:%f length:%f height:%d %d", 
+    //     g->x, g->y, g->dir_x, g->dir_y, g->planx, g->plany, g->map_x, g->map_y, g->step_x, g->step_y, 
+    //      g->ray_x, g->ray_y, g->delta_x, g->delta_y, g->side_x, g->side_y, 
+    //     g->length, g->height);
+	// mlx_string_put(g->mlx, g->win, 10, 10 , 0, result);
 	g = (t_data *)param;
 	g->pic = ft_create_img(g, g->width, g->width, 0);
 	if (!g->pic)

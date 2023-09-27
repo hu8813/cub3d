@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   positions.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:30:27 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/27 13:50:14 by eelasam          ###   ########.fr       */
+/*   Updated: 2023/09/27 22:36:11 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,28 @@ the player's position character in the game state `t_data *g`. */
 void	set_pos(t_data *g)
 {
 	g->x_dir = 0;
-	g->y_dir = -0.7;
-	g->x_plane = 0.7;
+	g->y_dir = -0.66;
+	g->x_plane = 0.66;
 	g->y_plane = 0;
 	if (g->p_direction == 'W')
 	{
-		g->x_dir = 0.7;
+		g->x_dir = 0.66;
 		g->y_dir = 0;
 		g->x_plane = 0;
-		g->y_plane = 0.7;
+		g->y_plane = 0.66;
 	}
 	else if (g->p_direction == 'E')
 	{
-		g->x_dir = -0.7;
+		g->x_dir = -0.66;
 		g->y_dir = 0;
 		g->x_plane = 0;
-		g->y_plane = -0.7;
+		g->y_plane = -0.66;
 	}
 	else if (g->p_direction == 'S')
 	{
 		g->x_dir = 0;
-		g->y_dir = 0.7;
-		g->x_plane = -0.7;
+		g->y_dir = 0.66;
+		g->x_plane = -0.66;
 		g->y_plane = 0;
 	}
 }

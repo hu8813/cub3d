@@ -6,7 +6,7 @@
 /*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:28:30 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/27 19:33:19 by eelasam          ###   ########.fr       */
+/*   Updated: 2023/09/27 20:18:54 by eelasam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,44 +104,6 @@ static void	calculate_ray_values(t_data *g)
 	}
 }
 
-/* The core rendering function that's invoked for every frame. It computes
-ray casting for each screen column, draws the results, and then displays
-the frame on the screen using MLX. Also handles some input events. */
-/*int	render(void *param)
-{
-	t_data	*g;
-	int		y;
-	int		y;
-
-	g = (t_data *)param;
-	g->pic = ft_create_img(g, g->length, g->height, 0);
-	if (!g->pic)
-		ft_error("Mlx init img failed", g);
-	set_colors(g);
-	y = -1;
-	while (++y < g->length)
-	{
-		g->x_map = (int)g->x;
-		g->y_map = (int)g->y;
-		g->x_camera = 2 * y / (double)g->width - 1;
-		g->x_ray = g->x_dir - g->x_plane * g->x_camera;
-		g->y_ray = g->y_dir - g->y_plane * g->x_camera;
-		calculate_ray_values(g);
-		draw(g, y);
-	}
-	if (g->pic->g)
-	{
-		mlx_put_image_to_window(g->mlx, g->win, g->pic->g, 0, 0);
-		mlx_destroy_image(g->mlx, g->pic->g);
-	}
-	free(g->pic);
-	if (g->key && g->key == XK_Escape)
-		ft_exit(g);
-	else if (g->key && g->key != XK_Escape)
-		key(g->key, g, g->x_dir);
-	return (0);
-}*/
-/* Die erste Funktion führt das Raycasting für jeden Bildschirm y-Wert aus */
 static void	raycast_columns(t_data *g)
 {
 	int	y;
@@ -159,8 +121,9 @@ static void	raycast_columns(t_data *g)
 	}
 }
 
-/* Die zweite Funktion ist für das eigentliche Rendering und die
-Anzeige des Bildes auf dem Bildschirm zuständig */
+/* The core rendering function that's invoked for every frame. It computes
+ray casting for each screen column, draws the results, and then displays
+the frame on the screen using MLX. Also handles some input events. */
 int	render(void *param)
 {
 	t_data	*g;
@@ -183,12 +146,3 @@ int	render(void *param)
 		key(g->key, g, g->x_dir);
 	return (0);
 }
-
-/* Die ursprüngliche render-Funktion ruft die beiden oben
-definierten Funktionen auf */
-// int render(void *param)
-// {
-//     t_data *g = (t_data *)param;
-//     render_and_display(g);
-//     return (0);
-// }

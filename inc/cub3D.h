@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 06:57:31 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/27 22:15:09 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/27 22:38:19 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ ft_calloc, ft_putendl_fd, ft_substr, ft_strdup, ft_strjoin */
 # include "../libft/libft.h"
 
 /* angle (instead degrees) to turn when left or right arrow is pressed */
-# define LR_ANGLE 0.04
+# define LR_ANGLE 0.03
 
 /* speed of the movement of the player, when w, a, s or d is pressed*/
 # define SPEED 0.06

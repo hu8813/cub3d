@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 06:57:31 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/27 22:38:19 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/28 13:00:15 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ typedef struct s_data
 	int		x_step;
 	double	x_ray;
 	double	x_dir;
-	double	x_plane;
 	double	x_delta;
 	double	x_side;
 	double	y;
@@ -78,7 +77,6 @@ typedef struct s_data
 	int		y_step;
 	double	y_ray;
 	double	y_dir;
-	double	y_plane;
 	double	y_delta;
 	double	y_side;
 	char	p_direction;

@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:30:27 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/27 22:36:11 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/28 13:01:45 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,28 @@ void	set_pos(t_data *g)
 {
 	g->x_dir = 0;
 	g->y_dir = -0.66;
-	g->x_plane = 0.66;
-	g->y_plane = 0;
+	// -g->y_dir = 0.76;
+	// g->x_dir = 0;
 	if (g->p_direction == 'W')
 	{
 		g->x_dir = 0.66;
 		g->y_dir = 0;
-		g->x_plane = 0;
-		g->y_plane = 0.66;
+		// -g->y_dir = 0;
+		// g->x_dir = 0.66;
 	}
 	else if (g->p_direction == 'E')
 	{
 		g->x_dir = -0.66;
 		g->y_dir = 0;
-		g->x_plane = 0;
-		g->y_plane = -0.66;
+		// -g->y_dir = 0;
+		// g->x_dir = -0.66;
 	}
 	else if (g->p_direction == 'S')
 	{
 		g->x_dir = 0;
 		g->y_dir = 0.66;
-		g->x_plane = -0.66;
-		g->y_plane = 0;
+		// -g->y_dir = -0.66;
+		// g->x_dir = 0;
 	}
 }
 
@@ -114,23 +114,17 @@ void	key(int key, t_data *g, double temp)
 	else if (g->move && (key == XK_s))
 		go(g, g->y - g->y_dir * SPEED / 2, g->x - g->x_dir * SPEED / 2);
 	else if (key == XK_d)
-		go(g, g->y - g->y_plane * SPEED / 2, g->x - g->x_plane * SPEED / 2);
+		go(g, g->y - g->x_dir * SPEED / 2, g->x + g->y_dir * SPEED / 2);
 	else if (key == XK_a)
-		go(g, g->y + g->y_plane * SPEED / 2, g->x + g->x_plane * SPEED / 2);
+		go(g, g->y + g->x_dir * SPEED / 2, g->x - g->y_dir * SPEED / 2);
 	if (g->rotate[0] == '1' && (key == XK_Left))
 	{
 		g->x_dir = g->x_dir * cos(LR_ANGLE) - g->y_dir * sin(LR_ANGLE);
 		g->y_dir = temp * sin(LR_ANGLE) + g->y_dir * cos(LR_ANGLE);
-		temp = g->x_plane;
-		g->x_plane = g->x_plane * cos(LR_ANGLE) - g->y_plane * sin(LR_ANGLE);
-		g->y_plane = temp * sin(LR_ANGLE) + g->y_plane * cos(LR_ANGLE);
 	}
 	else if (g->rotate[2] == '1' && (key == XK_Right))
 	{
 		g->x_dir = g->x_dir * cos(-LR_ANGLE) - g->y_dir * sin(-LR_ANGLE);
 		g->y_dir = temp * sin(-LR_ANGLE) + g->y_dir * cos(-LR_ANGLE);
-		temp = g->x_plane;
-		g->x_plane = g->x_plane * cos(-LR_ANGLE) - g->y_plane * sin(-LR_ANGLE);
-		g->y_plane = temp * sin(-LR_ANGLE) + g->y_plane * cos(-LR_ANGLE);
 	}
 }

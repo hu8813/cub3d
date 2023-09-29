@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:30:27 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/29 09:26:39 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/29 10:29:21 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,20 @@ void	set_pos(t_data *g)
 {
 	g->x_dir = 0;
 	g->y_dir = -0.66;
-	// -g->y_dir = 0.76;
-	// g->x_dir = 0;
 	if (g->p_direction == 'W')
 	{
 		g->x_dir = 0.66;
 		g->y_dir = 0;
-		// -g->y_dir = 0;
-		// g->x_dir = 0.66;
 	}
 	else if (g->p_direction == 'E')
 	{
 		g->x_dir = -0.66;
 		g->y_dir = 0;
-		// -g->y_dir = 0;
-		// g->x_dir = -0.66;
 	}
 	else if (g->p_direction == 'S')
 	{
 		g->x_dir = 0;
 		g->y_dir = 0.66;
-		// -g->y_dir = -0.66;
-		// g->x_dir = 0;
 	}
 }
 

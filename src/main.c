@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 15:12:05 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/27 19:19:31 by eelasam          ###   ########.fr       */
+/*   Updated: 2023/09/29 10:27:15 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	main(int argc, char **argv)
 	}
 	init_struct(&g);
 	if (parse_args(argv[1], &g) != 0)
-		ft_error("Error\nParsing failed", &g);
+		ft_error("Error\nParsing failed, map error", &g);
 	if (init_game(&g) == 0)
 		ft_error("Error\nInitialisation failed", &g);
 	return (0);

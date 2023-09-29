@@ -41,8 +41,9 @@ int	check_map(char *map, char *pos, int i, int count)
 {
 	char	**tmp;
 
+	if (!map)
+		return (-1);
 	i = process_map_chars(map, i, pos, count);
-	return (0);
 	if (i == -1)
 		return (free(map), -1);
 	if (map && map[i])

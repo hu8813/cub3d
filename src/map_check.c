@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:17:13 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/27 20:06:16 by eelasam          ###   ########.fr       */
+/*   Updated: 2023/09/29 11:39:03 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	check_valid_route(char **map, char *str)
 			}
 		}
 	}
-	ft_free_all(map, str, NULL, NULL);
+	ft_free_all(map, NULL, NULL, NULL);
 	return (0);
 }
 

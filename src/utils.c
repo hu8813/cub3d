@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eelasam <Ehab@student.42vienna.com>        +#+  +:+       +#+        */
+/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 09:23:22 by huaydin           #+#    #+#             */
-/*   Updated: 2023/09/25 22:40:36 by eelasam          ###   ########.fr       */
+/*   Updated: 2023/09/29 11:38:20 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,12 @@ void	ft_free_all(char **s, char *s1, char *s2, char *s3)
 			i++;
 		while (j < i && s && s[j])
 		{
-			free(s[j]);
+			if (s[j])
+				free(s[j]);
 			j++;
 		}
-		free(s[j]);
+		if (s[j])
+			free(s[j]);
 		free(s);
 	}
 	if (s1 && *s1)

@@ -7,7 +7,7 @@
         "program": "${workspaceFolder}/cub3D",
         "args": ["maps/map_debug.cub"],
         "stopAtEntry": false,
-        "cwd": "${fileDirname}",
+        "cwd": "${workspaceFolder}",
         "environment": [],
         "externalConsole": false,
         "MIMode": "gdb",

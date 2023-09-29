@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:06:16 by huaydin           #+#    #+#             */
-/*   Updated: 2023/09/27 20:17:25 by eelasam          ###   ########.fr       */
+/*   Updated: 2023/09/29 10:21:41 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*get_texture(char *s, t_data *g, int *pos)
 	while (s[k] && s[k] != '\n' && (s[k] == ' ' || s[k] == '\t'))
 		k--;
 	tmp = ft_substr(s, i, k - i + 1);
-	if (access(tmp, F_OK | R_OK) == -1)
+	if (!tmp || access(tmp, F_OK | R_OK) == -1)
 	{
 		free(tmp);
 		return (NULL);
@@ -117,6 +117,10 @@ int	map_split(char *s, t_data *g)
 	if (!pre_check(s))
 		return (1);
 	assign_textures(s, g, &i);
+	if (!g->ea_path || !g->we_path || !g->so_path || !g->no_path
+		|| g->f_color[0] == -1 || g->c_color[0] == -1 || g->f_color[1] == -1
+		|| g->c_color[1] == -1 || g->f_color[2] == -1 || g->c_color[2] == -1)
+		return (1);
 	if (verify_color_path_data(s, g, &i))
 		return (1);
 	return (prepare_map_data(s, g, &i));

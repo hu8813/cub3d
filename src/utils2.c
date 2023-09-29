@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:25:48 by huaydin           #+#    #+#             */
-/*   Updated: 2023/09/27 09:02:00 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/29 10:20:14 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	check_overflow(char *str, int num)
 
 	i = -1;
 	tmp = NULL;
+	if (!str || !str[0])
+		return (-1);
 	while (str && str[++i])
 	{
 		if (!ft_isdigit(str[i]) && !ft_isspace(str[i]))

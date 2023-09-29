@@ -61,7 +61,7 @@ char	*initialize_and_preprocess(char *s, int *i, int *k)
 	int		ind;
 	char	*tmp;
 
-	ind = ft_strchr_idx(ft_strdup(&s[*i]), '\n');
+	ind = ft_strchr_idx(&s[*i], '\n');
 	if (ind == -1 || ind == 0 || s[*i] == '\n')
 		return (NULL);
 	*k += ind;
@@ -85,7 +85,7 @@ int	extract_colors_from_string(char *s, int rgb[3], char *tmp, int *i)
 		{
 			tmp[j] = '\0';
 			rgb[ind] = check_overflow(tmp, atoi(tmp));
-			ft_memset(tmp, 0, 10);
+			ft_memset(tmp, 0, ft_strlen(tmp));
 			j = 0;
 			ind++;
 			if (ind == 3)

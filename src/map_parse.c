@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:06:16 by huaydin           #+#    #+#             */
-/*   Updated: 2023/09/29 11:40:33 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/29 15:01:00 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*get_texture(char *s, t_data *g, int *pos)
 	char	*tmp;
 
 	i = 0;
-	k = ft_strchr_idx(ft_strdup(&s[i]), '\n');
+	k = ft_strchr_idx(&s[i], '\n');
 	while (s[i] && i < k && s[i] != '\n' && (s[i] == ' ' || s[i] == '\t'))
 		i++;
 	if (k == -1 || k == 0 || s[i] == '\n')
@@ -34,7 +34,8 @@ static char	*get_texture(char *s, t_data *g, int *pos)
 	tmp = ft_substr(s, i, k - i + 1);
 	if (!tmp || access(tmp, F_OK | R_OK) == -1)
 	{
-		free(tmp);
+		if (tmp)
+			free(tmp);
 		return (NULL);
 	}
 	else
@@ -47,13 +48,13 @@ int	assign_textures(char *s, t_data *g, int *i)
 {
 	while (s[*i] != 0)
 	{
-		if (!ft_strncmp(&s[*i], "NO ", 3))
+		if (!ft_strncmp(&s[*i], "NO ", 3) && !g->no_path)
 			g->no_path = get_texture(&s[*i + 3], g, i);
-		else if (!ft_strncmp(&s[*i], "SO ", 3))
+		else if (!ft_strncmp(&s[*i], "SO ", 3) && !g->so_path)
 			g->so_path = get_texture(&s[*i + 3], g, i);
-		else if (!ft_strncmp(&s[*i], "WE ", 3))
+		else if (!ft_strncmp(&s[*i], "WE ", 3) && !g->we_path)
 			g->we_path = get_texture(&s[*i + 3], g, i);
-		else if (!ft_strncmp(&s[*i], "EA ", 3))
+		else if (!ft_strncmp(&s[*i], "EA ", 3) && !g->ea_path)
 			g->ea_path = get_texture(&s[*i + 3], g, i);
 		else if (!ft_strncmp(&s[*i], "F ", 2))
 			get_color(&s[*i + 2], g->f_color, i);
@@ -96,7 +97,7 @@ int	prepare_map_data(char *s, t_data *g, int *i)
 	if (!tmp)
 		return (1);
 	if (check_map(tmp, &g->p_direction, 0, 0))
-		return (1);
+		return (free(tmp), 1);
 	if (tmp)
 		free(tmp);
 	g->map = ft_split(&s[*i], '\n');

@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:28:30 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/28 13:03:18 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/28 16:05:40 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	draw(t_data *g, int x)
 	int	start;
 	int	end;
 
-	if (g->wall < 0)
+	if (g->wall < 0.5)
 		return ;
 	line = (int)(g->height / g->wall);
 	if (line > 200000)

@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:30:27 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/28 13:01:45 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/28 21:34:10 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,16 @@ void	set_colors(t_data *g)
 }
 
 /* Modifies the player's position in the game state `t_data *g` based on the
-proposed movements in the x and y directions (`sumX` and `sumy`). */
-static void	go(t_data *g, double sumy, double sumX)
+proposed movements in the x and y directions (`newX` and `newy`). */
+static void	go(t_data *g, double newy, double newX)
 {
-	if ((int)sumy >= 0 && g->map[(int)sumy])
+	if ((int)newy >= 0 && g->map[(int)(newy)])
 	{
-		g->y = sumy;
-		if ((int)sumX >= 0 && g->map[(int)sumy][(int)sumX]
-			&& g->map[(int)sumy][(int)sumX] != ' ')
-			g->x = sumX;
+		g->y = newy;
+		if ((int)newX >= 0 && g->map[(int)newy][(int)(newX)]
+			&& g->map[(int)newy][(int)(newX)] != ' '
+			&& g->map[(int)newy][(int)(newX)] != '1')
+			g->x = newX;
 	}
 }
 
@@ -109,7 +110,7 @@ static void	go(t_data *g, double sumy, double sumX)
 the player's position and direction in the game state `t_data *g`. */
 void	key(int key, t_data *g, double temp)
 {
-	if (g->move == XK_w || key == XK_w)
+	if ((g->move == XK_w || key == XK_w) && g->y)
 		go(g, g->y + g->y_dir * SPEED, g->x + g->x_dir * SPEED);
 	else if (g->move && (key == XK_s))
 		go(g, g->y - g->y_dir * SPEED / 2, g->x - g->x_dir * SPEED / 2);

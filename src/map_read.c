@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_read.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 19:55:44 by huaydin           #+#    #+#             */
-/*   Updated: 2023/09/27 12:46:11 by eelasam          ###   ########.fr       */
+/*   Updated: 2023/09/30 17:40:57 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	parse_args(char *map_file, t_data *g)
 {
 	char	*map_content;
 
-	g->fd = open(map_file, O_RDONLY);
 	if (g->fd == -1)
 	{
 		ft_putendl_fd("Error\nCannot open file ", 2);

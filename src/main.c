@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 15:12:05 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/29 10:27:15 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/30 17:43:27 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ static int	init_game(t_data *g)
 
 static void	init_struct(t_data *g)
 {
-	ft_memset(g, 0, sizeof(t_data));
 	g->mlx = 0;
 	g->north = 0;
 	g->south = 0;
@@ -106,15 +105,21 @@ static void	init_struct(t_data *g)
 	g->rotate[0] = '0';
 	g->rotate[1] = '0';
 	g->rotate[2] = '0';
-	g->fd = -1;
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	g;
 
-	if (argc != 2 || access(argv[1], F_OK | R_OK) == -1 || (ft_strlen(argv[1])
-			> 3 && !ft_strncmp(argv[1] + ft_strlen(argv[1]) - 5, ".cub", 4)))
+	if (argc != 2 || (ft_strlen(argv[1]) > 3
+			&& !ft_strncmp(argv[1] + ft_strlen(argv[1]) - 5, ".cub", 4)))
+	{
+		ft_putendl_fd("Error\nUsage: ./cub3D maps/map1.cub", 2);
+		exit(1);
+	}
+	ft_memset(&g, 0, sizeof(t_data));
+	g.fd = open(argv[1], O_RDONLY);
+	if (g.fd == -1)
 	{
 		ft_putendl_fd("Error\nUsage: ./cub3D maps/map1.cub", 2);
 		exit(1);

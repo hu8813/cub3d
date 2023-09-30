@@ -6,8 +6,8 @@ SO    ./img/rock2.xpm
 WE ./img/huaydin.xpm
 
 EA                  ./img/eelasam.xpm
-F 0,153,15
-C 255,255,255
+C 135,206,235
+F 34,139,34
 
 
 

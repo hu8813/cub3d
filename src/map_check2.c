@@ -86,10 +86,13 @@ int	extract_colors_from_string(char *s, int rgb[3], char *tmp, int *i)
 			tmp[j] = '\0';
 			rgb[ind] = check_overflow(tmp, atoi(tmp));
 			ft_memset(tmp, 0, ft_strlen(tmp));
-			j = 0;
 			ind++;
-			if (ind == 3)
+			printf("%d %d %d\n", *i, j, ind);
+			if (ind == 3 && s[*i] == '\n')
+				return (0);
+			else if (ind == 3 && s[*i] != '\n')
 				return (1);
+			j = 0;
 		}
 		else if (s[*i] != ' ' && s[*i] != '\t')
 		{
@@ -106,7 +109,7 @@ int	extract_colors_from_string(char *s, int rgb[3], char *tmp, int *i)
 spaces, or tabs.
 Then it splits the map by newlines and passes it to `check_valid_route`
 for further validation.  */
-void	get_color(char *s, int rgb[3], int *k)
+int	get_color(char *s, int rgb[3], int *k)
 {
 	int		i;
 	char	*tmp;
@@ -114,11 +117,12 @@ void	get_color(char *s, int rgb[3], int *k)
 	i = 0;
 	tmp = initialize_and_preprocess(s, &i, k);
 	if (!tmp)
-		return ;
+		return (1);
 	if (extract_colors_from_string(s, rgb, tmp, &i))
 	{
 		free(tmp);
-		return ;
+		return (1);
 	}
 	free(tmp);
+	return (0);
 }

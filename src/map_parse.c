@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:06:16 by huaydin           #+#    #+#             */
-/*   Updated: 2023/09/29 15:01:00 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/30 17:54:48 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,12 @@ int	assign_textures(char *s, t_data *g, int *i)
 			g->we_path = get_texture(&s[*i + 3], g, i);
 		else if (!ft_strncmp(&s[*i], "EA ", 3) && !g->ea_path)
 			g->ea_path = get_texture(&s[*i + 3], g, i);
-		else if (!ft_strncmp(&s[*i], "F ", 2))
-			get_color(&s[*i + 2], g->f_color, i);
-		else if (!ft_strncmp(&s[*i], "C ", 2))
-			get_color(&s[*i + 2], g->c_color, i);
+		else if (!ft_strncmp(&s[*i], "F ", 2)
+			&& get_color(&s[*i + 2], g->f_color, i))
+			return (1);
+		else if (!ft_strncmp(&s[*i], "C ", 2)
+			&& get_color(&s[*i + 2], g->c_color, i))
+			return (1);
 		(*i)++;
 	}
 	return (0);
@@ -117,7 +119,8 @@ int	map_split(char *s, t_data *g)
 	i = 0;
 	if (!pre_check(s))
 		return (1);
-	assign_textures(s, g, &i);
+	if (assign_textures(s, g, &i))
+		return (1);
 	if (!g->ea_path || !g->we_path || !g->so_path || !g->no_path
 		|| g->f_color[0] == -1 || g->c_color[0] == -1 || g->f_color[1] == -1
 		|| g->c_color[1] == -1 || g->f_color[2] == -1 || g->c_color[2] == -1)

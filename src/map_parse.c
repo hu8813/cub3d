@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:06:16 by huaydin           #+#    #+#             */
-/*   Updated: 2023/09/30 17:54:48 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/30 18:30:06 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,16 @@ static char	*get_texture(char *s, t_data *g, int *pos)
 	while (s[k] && s[k] != '\n' && (s[k] == ' ' || s[k] == '\t'))
 		k--;
 	tmp = ft_substr(s, i, k - i + 1);
-	if (!tmp || access(tmp, F_OK | R_OK) == -1)
+	if (!tmp || ft_strlen(tmp) < 4
+		|| (!ft_strncmp(tmp + ft_strlen(tmp) - 5, ".xpm", 4)))
 	{
+		g->error_code = ERR_INVALID_TEXTURE;
 		if (tmp)
 			free(tmp);
 		return (NULL);
 	}
 	else
 		return (tmp);
-	(void)g;
-	(void)pos;
 }
 
 int	assign_textures(char *s, t_data *g, int *i)

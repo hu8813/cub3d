@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 15:12:05 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/30 17:43:27 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/30 18:28:14 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ static int	init_game(t_data *g)
 
 static void	init_struct(t_data *g)
 {
+	g->error_code = 0;
 	g->mlx = 0;
 	g->north = 0;
 	g->south = 0;
@@ -111,8 +112,8 @@ int	main(int argc, char **argv)
 {
 	t_data	g;
 
-	if (argc != 2 || (ft_strlen(argv[1]) > 3
-			&& !ft_strncmp(argv[1] + ft_strlen(argv[1]) - 5, ".cub", 4)))
+	if (argc != 2 || ft_strlen(argv[1]) < 4
+		|| (!ft_strncmp(argv[1] + ft_strlen(argv[1]) - 5, ".cub", 4)))
 	{
 		ft_putendl_fd("Error\nUsage: ./cub3D maps/map1.cub", 2);
 		exit(1);

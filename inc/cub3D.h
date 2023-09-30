@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 06:57:31 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/30 17:53:37 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/30 18:29:25 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,17 @@ ft_calloc, ft_putendl_fd, ft_substr, ft_strdup, ft_strjoin */
 /* speed of the movement of the player, when w, a, s or d is pressed*/
 # define SPEED 0.06
 
+typedef enum e_error_codes {
+    SUCCESS = 0,
+    ERR_FILE_NOT_FOUND,
+    ERR_FILE_READ,
+    ERR_INVALID_TEXTURE,
+    ERR_INVALID_MAP,
+    ERR_INVALID_COLOR,
+    ERR_DUPLICATE_FLOOR,
+    ERR_DUPLICATE_CEIL,
+} t_error_codes;
+
 /**/
 typedef struct s_pic
 {
@@ -57,6 +68,7 @@ typedef struct s_pic
 /**/
 typedef struct s_data
 {
+	int		error_code;
 	void	*mlx;
 	void	*win;
 	char	**map;

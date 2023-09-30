@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:17:13 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/27 20:06:16 by eelasam          ###   ########.fr       */
+/*   Updated: 2023/09/30 21:32:53 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 /* This function conducts a flood-fill operation on the map to ensure its
 walls are closed and no spaces leak out of the map boundaries. If the fill
 hits the edge of the map or an open space, the map is marked as invalid. */
-void	flood_fill(char **mapcopy, size_t i, size_t j, int *exit)
+void	flood_fill(char **mapcopy, size_t i, size_t j, int *err)
 {
 	if (i < 0 || j < 0 || !mapcopy[i] || (j >= ft_strlen(mapcopy[i]))
 		|| (mapcopy[i][j] && mapcopy[i][j] == ' '))
 	{
-		*exit = 1;
+		*err = 1;
 		return ;
 	}
 	else if (mapcopy[i][j] != '0')
 		return ;
 	mapcopy[i][j] = 'O';
-	flood_fill(mapcopy, i - 1, j, exit);
-	flood_fill(mapcopy, i + 1, j, exit);
-	flood_fill(mapcopy, i, j - 1, exit);
-	flood_fill(mapcopy, i, j + 1, exit);
+	flood_fill(mapcopy, i - 1, j, err);
+	flood_fill(mapcopy, i + 1, j, err);
+	flood_fill(mapcopy, i, j - 1, err);
+	flood_fill(mapcopy, i, j + 1, err);
 }
 
 /* Checks if a map has a valid route by converting player positions and
@@ -59,12 +59,12 @@ int	check_valid_route(char **map, char *str)
 			}
 		}
 	}
-	ft_free_all(map, str, NULL, NULL);
+	ft_free_all(map, NULL, NULL, NULL);
 	return (0);
 }
 
 // Checks if a single texture file exists and can be read.
-static int	check_single_texture(char *path)
+static int	check_single_texture(char *path, t_data	*g)
 {
 	int		fd;
 	char	c;
@@ -72,14 +72,12 @@ static int	check_single_texture(char *path)
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_putendl_fd("Error\nCannot open file ", 2);
-		ft_putendl_fd(path, 2);
+		g->error_code = ERR_FILE_NOT_FOUND;
 		return (-1);
 	}
 	else if (read(fd, &c, 1) == -1)
 	{
-		ft_putendl_fd("Error\nCannot read file ", 2);
-		ft_putendl_fd(path, 2);
+		g->error_code = ERR_FILE_READ;
 		close(fd);
 		return (-1);
 	}
@@ -87,17 +85,29 @@ static int	check_single_texture(char *path)
 	return (0);
 }
 
+int	is_duplicate(t_data *g, char **path)
+{
+	if (path && *path)
+	{
+		free(*path);
+		*path = NULL;
+		g->error_code = ERR_MULTIPLE_TEXTURE;
+		return (1);
+	}
+	return (0);
+}
+
 /* Validates each texture path (north, south, west, and east) by checking
 if the corresponding files exist and can be read. */
-int	check_texture(t_data *data)
+int	check_texture(t_data *g)
 {
-	if (check_single_texture(data->no_path) == -1)
+	if (check_single_texture(g->no_path, g) == -1)
 		return (-1);
-	if (check_single_texture(data->so_path) == -1)
+	if (check_single_texture(g->so_path, g) == -1)
 		return (-1);
-	if (check_single_texture(data->we_path) == -1)
+	if (check_single_texture(g->we_path, g) == -1)
 		return (-1);
-	if (check_single_texture(data->ea_path) == -1)
+	if (check_single_texture(g->ea_path, g) == -1)
 		return (-1);
 	return (0);
 }

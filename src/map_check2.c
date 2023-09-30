@@ -37,20 +37,21 @@ int	process_map_chars(char *m, int i, char *p_direction, int count)
 	return (i);
 }
 
-int	check_map(char *map, char *pos, int i, int count)
+int	check_map(t_data *g, char *pos, int i, int count)
 {
 	char	**tmp;
 
-	i = process_map_chars(map, i, pos, count);
-	return (0);
-	if (i == -1)
-		return (free(map), -1);
-	if (map && map[i])
-		return (free(map), -1);
-	tmp = ft_split(map, '\n');
-	if (!tmp)
-		return (free(map), -1);
-	return (check_valid_route(tmp, map));
+	if (!g->tmp_map)
+		return (-1);
+	i = process_map_chars(g->tmp_map, i, pos, count);
+	if (i == -1 && g->tmp_map)
+		return (-1);
+	if (g->tmp_map && g->tmp_map[i])
+		return (-1);
+	tmp = ft_split(g->tmp_map, '\n');
+	if (!tmp && g->tmp_map)
+		return (-1);
+	return (check_valid_route(tmp, g->tmp_map));
 }
 
 // Hilfsfunktion
@@ -60,7 +61,7 @@ char	*initialize_and_preprocess(char *s, int *i, int *k)
 	int		ind;
 	char	*tmp;
 
-	ind = ft_strchr_idx(ft_strdup(&s[*i]), '\n');
+	ind = ft_strchr_idx(&s[*i], '\n');
 	if (ind == -1 || ind == 0 || s[*i] == '\n')
 		return (NULL);
 	*k += ind;
@@ -84,17 +85,16 @@ int	extract_colors_from_string(char *s, int rgb[3], char *tmp, int *i)
 		{
 			tmp[j] = '\0';
 			rgb[ind] = check_overflow(tmp, atoi(tmp));
-			ft_memset(tmp, 0, 10);
-			j = 0;
-			ind++;
-			if (ind == 3)
+			ft_memset(tmp, 0, ft_strlen(tmp));
+			if (ind == 2 && s[*i] == '\n' && rgb[ind] != -1)
+				return (0);
+			else if (rgb[ind] == -1 || (ind == 2 && s[*i] != '\n'))
 				return (1);
+			ind++;
+			j = 0;
 		}
 		else if (s[*i] != ' ' && s[*i] != '\t')
-		{
-			tmp[j] = s[*i];
-			j++;
-		}
+			tmp[j++] = s[*i];
 		(*i)++;
 	}
 	return (0);
@@ -105,7 +105,7 @@ int	extract_colors_from_string(char *s, int rgb[3], char *tmp, int *i)
 spaces, or tabs.
 Then it splits the map by newlines and passes it to `check_valid_route`
 for further validation.  */
-void	get_color(char *s, int rgb[3], int *k)
+int	get_color(char *s, int rgb[3], int *k)
 {
 	int		i;
 	char	*tmp;
@@ -113,11 +113,12 @@ void	get_color(char *s, int rgb[3], int *k)
 	i = 0;
 	tmp = initialize_and_preprocess(s, &i, k);
 	if (!tmp)
-		return ;
+		return (1);
 	if (extract_colors_from_string(s, rgb, tmp, &i))
 	{
 		free(tmp);
-		return ;
+		return (1);
 	}
 	free(tmp);
+	return (0);
 }

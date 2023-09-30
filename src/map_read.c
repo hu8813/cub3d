@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_read.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 19:55:44 by huaydin           #+#    #+#             */
-/*   Updated: 2023/09/27 12:46:11 by eelasam          ###   ########.fr       */
+/*   Updated: 2023/09/30 19:05:55 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,19 @@ the file content, validates the map layout, and extracts associated
 configurations. The parsed information is stored in the game state structure
 `t_data *g`. If the file cannot be opened, read, or if the map content is
 invalid, the function returns -1. Otherwise, it returns 0. */
-int	parse_args(char *map_file, t_data *g)
+int	parse_args(t_data *g)
 {
 	char	*map_content;
 
-	g->fd = open(map_file, O_RDONLY);
 	if (g->fd == -1)
 	{
-		ft_putendl_fd("Error\nCannot open file ", 2);
-		ft_putendl_fd(map_file, 2);
+		g->error_code = ERR_FILE_NOT_FOUND;
 		return (-1);
 	}
 	map_content = read_cub_file(g->fd);
 	if (!map_content)
 	{
+		g->error_code = ERR_FILE_READ;
 		close(g->fd);
 		return (-1);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   positions.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:30:27 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/27 13:50:14 by eelasam          ###   ########.fr       */
+/*   Updated: 2023/09/29 10:29:21 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,21 @@ the player's position character in the game state `t_data *g`. */
 void	set_pos(t_data *g)
 {
 	g->x_dir = 0;
-	g->y_dir = -0.7;
-	g->x_plane = 0.7;
-	g->y_plane = 0;
+	g->y_dir = -0.66;
 	if (g->p_direction == 'W')
 	{
-		g->x_dir = 0.7;
+		g->x_dir = 0.66;
 		g->y_dir = 0;
-		g->x_plane = 0;
-		g->y_plane = 0.7;
 	}
 	else if (g->p_direction == 'E')
 	{
-		g->x_dir = -0.7;
+		g->x_dir = -0.66;
 		g->y_dir = 0;
-		g->x_plane = 0;
-		g->y_plane = -0.7;
 	}
 	else if (g->p_direction == 'S')
 	{
 		g->x_dir = 0;
-		g->y_dir = 0.7;
-		g->x_plane = -0.7;
-		g->y_plane = 0;
+		g->y_dir = 0.66;
 	}
 }
 
@@ -93,15 +85,16 @@ void	set_colors(t_data *g)
 }
 
 /* Modifies the player's position in the game state `t_data *g` based on the
-proposed movements in the x and y directions (`sumX` and `sumy`). */
-static void	go(t_data *g, double sumy, double sumX)
+proposed movements in the x and y directions (`newX` and `newy`). */
+static void	go(t_data *g, double newy, double newX)
 {
-	if ((int)sumy >= 0 && g->map[(int)sumy])
+	if ((int)newy >= 0 && g->map[(int)(newy)])
 	{
-		g->y = sumy;
-		if ((int)sumX >= 0 && g->map[(int)sumy][(int)sumX]
-			&& g->map[(int)sumy][(int)sumX] != ' ')
-			g->x = sumX;
+		g->y = newy;
+		if ((int)newX >= 0 && g->map[(int)newy][(int)(newX)]
+			&& g->map[(int)newy][(int)(newX)] != ' '
+			&& g->map[(int)newy][(int)(newX)] != '1')
+			g->x = newX;
 	}
 }
 
@@ -109,28 +102,22 @@ static void	go(t_data *g, double sumy, double sumX)
 the player's position and direction in the game state `t_data *g`. */
 void	key(int key, t_data *g, double temp)
 {
-	if (g->move == XK_w || key == XK_w)
+	if ((g->move == XK_w || key == XK_w) && g->y)
 		go(g, g->y + g->y_dir * SPEED, g->x + g->x_dir * SPEED);
 	else if (g->move && (key == XK_s))
 		go(g, g->y - g->y_dir * SPEED / 2, g->x - g->x_dir * SPEED / 2);
 	else if (key == XK_d)
-		go(g, g->y - g->y_plane * SPEED / 2, g->x - g->x_plane * SPEED / 2);
+		go(g, g->y - g->x_dir * SPEED / 2, g->x + g->y_dir * SPEED / 2);
 	else if (key == XK_a)
-		go(g, g->y + g->y_plane * SPEED / 2, g->x + g->x_plane * SPEED / 2);
+		go(g, g->y + g->x_dir * SPEED / 2, g->x - g->y_dir * SPEED / 2);
 	if (g->rotate[0] == '1' && (key == XK_Left))
 	{
 		g->x_dir = g->x_dir * cos(LR_ANGLE) - g->y_dir * sin(LR_ANGLE);
 		g->y_dir = temp * sin(LR_ANGLE) + g->y_dir * cos(LR_ANGLE);
-		temp = g->x_plane;
-		g->x_plane = g->x_plane * cos(LR_ANGLE) - g->y_plane * sin(LR_ANGLE);
-		g->y_plane = temp * sin(LR_ANGLE) + g->y_plane * cos(LR_ANGLE);
 	}
 	else if (g->rotate[2] == '1' && (key == XK_Right))
 	{
 		g->x_dir = g->x_dir * cos(-LR_ANGLE) - g->y_dir * sin(-LR_ANGLE);
 		g->y_dir = temp * sin(-LR_ANGLE) + g->y_dir * cos(-LR_ANGLE);
-		temp = g->x_plane;
-		g->x_plane = g->x_plane * cos(-LR_ANGLE) - g->y_plane * sin(-LR_ANGLE);
-		g->y_plane = temp * sin(-LR_ANGLE) + g->y_plane * cos(-LR_ANGLE);
 	}
 }

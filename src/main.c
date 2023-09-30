@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 15:12:05 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/27 19:19:31 by eelasam          ###   ########.fr       */
+/*   Updated: 2023/09/30 20:25:57 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int	init_game(t_data *g)
 
 static void	init_struct(t_data *g)
 {
-	ft_memset(g, 0, sizeof(t_data));
+	g->error_code = 0;
 	g->mlx = 0;
 	g->north = 0;
 	g->south = 0;
@@ -100,29 +100,36 @@ static void	init_struct(t_data *g)
 	g->c_color[1] = -1;
 	g->c_color[2] = -1;
 	g->map = 0;
+	g->tmp_map = 0;
 	g->p_direction = 0;
 	g->key = 0;
 	g->move = 0;
 	g->rotate[0] = '0';
 	g->rotate[1] = '0';
 	g->rotate[2] = '0';
-	g->fd = -1;
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	g;
 
-	if (argc != 2 || access(argv[1], F_OK | R_OK) == -1 || (ft_strlen(argv[1])
-			> 3 && !ft_strncmp(argv[1] + ft_strlen(argv[1]) - 5, ".cub", 4)))
+	if (argc != 2 || ft_strlen(argv[1]) < 4
+		|| (!ft_strncmp(argv[1] + ft_strlen(argv[1]) - 5, ".cub", 4)))
+	{
+		ft_putendl_fd("Error\nUsage: ./cub3D maps/map1.cub", 2);
+		exit(1);
+	}
+	ft_memset(&g, 0, sizeof(t_data));
+	g.fd = open(argv[1], O_RDONLY);
+	if (g.fd == -1)
 	{
 		ft_putendl_fd("Error\nUsage: ./cub3D maps/map1.cub", 2);
 		exit(1);
 	}
 	init_struct(&g);
-	if (parse_args(argv[1], &g) != 0)
-		ft_error("Error\nParsing failed", &g);
+	if (parse_args(&g) != 0)
+		ft_error("Parsing failed, map error", &g);
 	if (init_game(&g) == 0)
-		ft_error("Error\nInitialisation failed", &g);
+		ft_error("Initialisation failed", &g);
 	return (0);
 }

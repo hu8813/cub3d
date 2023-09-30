@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eelasam <Ehab@student.42vienna.com>        +#+  +:+       +#+        */
+/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 09:23:22 by huaydin           #+#    #+#             */
-/*   Updated: 2023/09/25 22:40:36 by eelasam          ###   ########.fr       */
+/*   Updated: 2023/09/30 21:27:36 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,28 @@ int	ft_isspace(int c)
 
 /* if 1st parameter is not 0, prints an error message
 if 2nd parameter is not 0, frees the struct */
-void	ft_error(char *errorcode, t_data *data)
+void	ft_error(char *errorcode, t_data *g)
 {
+	if (g->error_code == ERR_INVALID_COLOR)
+		ft_putendl_fd("Error\nInvalid Floor or Ceil color in map file", 2);
+	else if (g->error_code == ERR_INVALID_TEXTURE)
+		ft_putendl_fd("Error\nInvalid texture file in map file", 2);
+	else if (g->error_code == ERR_MULTIPLE_TEXTURE)
+		ft_putendl_fd("Error\nInvalid texture or multiple values", 2);
+	else if (g->error_code == ERR_INVALID_MAP)
+		ft_putendl_fd("Error\nInvalid map", 2);
+	else if (g->error_code == ERR_FILE_READ)
+		ft_putendl_fd("Error\nInvalid texture file, not found", 2);
+	else if (g->error_code == ERR_FILE_NOT_FOUND)
+		ft_putendl_fd("Error\nInvalid texture file, not readable", 2);
 	if (errorcode)
+	{
+		if (!g->error_code)
+			ft_putendl_fd("Error", 2);
 		ft_putendl_fd(errorcode, 2);
-	if (data)
-		ft_exit(data);
+	}
+	if (g)
+		ft_exit(g);
 	exit(1);
 }
 
@@ -46,10 +62,12 @@ void	ft_free_all(char **s, char *s1, char *s2, char *s3)
 			i++;
 		while (j < i && s && s[j])
 		{
-			free(s[j]);
+			if (s[j])
+				free(s[j]);
 			j++;
 		}
-		free(s[j]);
+		if (s[j])
+			free(s[j]);
 		free(s);
 	}
 	if (s1 && *s1)
@@ -97,8 +115,7 @@ int	ft_exit(t_data *g)
 			free(g->mlx);
 			ft_free_ptr(g->north, g->east, g->west, g->south);
 		}
-		if (g->no_path)
-			free(g->no_path);
+		ft_free_all(NULL, NULL, g->no_path, NULL);
 		ft_free_all(g->map, g->ea_path, g->we_path, g->so_path);
 		if (g->fd != -1)
 			close(g->fd);

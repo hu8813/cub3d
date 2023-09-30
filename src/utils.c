@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 09:23:22 by huaydin           #+#    #+#             */
-/*   Updated: 2023/09/30 19:45:57 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/30 21:27:36 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	ft_error(char *errorcode, t_data *g)
 		ft_putendl_fd("Error\nInvalid Floor or Ceil color in map file", 2);
 	else if (g->error_code == ERR_INVALID_TEXTURE)
 		ft_putendl_fd("Error\nInvalid texture file in map file", 2);
+	else if (g->error_code == ERR_MULTIPLE_TEXTURE)
+		ft_putendl_fd("Error\nInvalid texture or multiple values", 2);
 	else if (g->error_code == ERR_INVALID_MAP)
 		ft_putendl_fd("Error\nInvalid map", 2);
 	else if (g->error_code == ERR_FILE_READ)
@@ -113,8 +115,7 @@ int	ft_exit(t_data *g)
 			free(g->mlx);
 			ft_free_ptr(g->north, g->east, g->west, g->south);
 		}
-		if (g->no_path)
-			free(g->no_path);
+		ft_free_all(NULL, NULL, g->no_path, NULL);
 		ft_free_all(g->map, g->ea_path, g->we_path, g->so_path);
 		if (g->fd != -1)
 			close(g->fd);

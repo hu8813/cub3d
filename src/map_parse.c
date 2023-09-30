@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:06:16 by huaydin           #+#    #+#             */
-/*   Updated: 2023/09/30 19:13:25 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/30 21:40:22 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,26 +48,22 @@ int	assign_textures(char *s, t_data *g, int *i)
 {
 	while (s[*i] != 0)
 	{
-		if (!ft_strncmp(&s[*i], "NO ", 3) && !g->no_path)
+		if (!ft_strncmp(&s[*i], "NO ", 3) && !is_duplicate(g, &g->no_path))
 			g->no_path = get_texture(&s[*i + 3], g, i);
-		else if (!ft_strncmp(&s[*i], "SO ", 3) && !g->so_path)
+		else if (!ft_strncmp(&s[*i], "SO ", 3) && !is_duplicate(g, &g->so_path))
 			g->so_path = get_texture(&s[*i + 3], g, i);
-		else if (!ft_strncmp(&s[*i], "WE ", 3) && !g->we_path)
+		else if (!ft_strncmp(&s[*i], "WE ", 3) && !is_duplicate(g, &g->we_path))
 			g->we_path = get_texture(&s[*i + 3], g, i);
-		else if (!ft_strncmp(&s[*i], "EA ", 3) && !g->ea_path)
+		else if (!ft_strncmp(&s[*i], "EA ", 3) && !is_duplicate(g, &g->ea_path))
 			g->ea_path = get_texture(&s[*i + 3], g, i);
-		else if (!ft_strncmp(&s[*i], "F ", 2)
-			&& get_color(&s[*i + 2], g->f_color, i))
-		{
+		else if (!ft_strncmp(&s[*i], "F ", 2) && (g->f_color[0] != -1
+				|| get_color(&s[*i + 2], g->f_color, i)))
 			g->error_code = ERR_INVALID_COLOR;
-			return (1);
-		}
-		else if (!ft_strncmp(&s[*i], "C ", 2)
-			&& get_color(&s[*i + 2], g->c_color, i))
-		{
+		else if (!ft_strncmp(&s[*i], "C ", 2) && (g->c_color[0] != -1
+				|| get_color(&s[*i + 2], g->c_color, i)))
 			g->error_code = ERR_INVALID_COLOR;
+		if (g->error_code)
 			return (1);
-		}
 		(*i)++;
 	}
 	return (0);
@@ -99,19 +95,18 @@ int	verify_color_path_data(char *s, t_data *g, int *i)
 
 int	prepare_map_data(char *s, t_data *g, int *i)
 {
-	char	*tmp;
-
-	tmp = ft_substr(s, *i, ft_strlen(&s[*i]));
-	if (!tmp)
+	g->tmp_map = ft_substr(s, *i, ft_strlen(&s[*i]));
+	if (!g->tmp_map)
 		return (1);
-	if (check_map(tmp, &g->p_direction, 0, 0))
+	if (check_map(g, &g->p_direction, 0, 0))
 	{
 		g->error_code = ERR_INVALID_MAP;
-		free(tmp);
+		if (g->tmp_map)
+			free(g->tmp_map);
 		return (1);
 	}
-	if (tmp)
-		free(tmp);
+	if (g->tmp_map)
+		free(g->tmp_map);
 	g->map = ft_split(&s[*i], '\n');
 	if (!g->map)
 		return (1);

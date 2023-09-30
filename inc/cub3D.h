@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 06:57:31 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/30 19:06:12 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/30 21:26:39 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ typedef enum e_error_codes
 	ERR_FILE_NOT_FOUND,
 	ERR_FILE_READ,
 	ERR_INVALID_TEXTURE,
+	ERR_MULTIPLE_TEXTURE,
 	ERR_INVALID_MAP,
 	ERR_INVALID_COLOR,
 }			t_error_codes;
 
-/**/
 typedef struct s_pic
 {
 	int		width;
@@ -64,12 +64,12 @@ typedef struct s_pic
 	int		*buf;
 }			t_img;
 
-/**/
 typedef struct s_data
 {
 	int		error_code;
 	void	*mlx;
 	void	*win;
+	char	*tmp_map;
 	char	**map;
 	int		fd;
 	int		side;
@@ -109,8 +109,9 @@ typedef struct s_data
 
 int			map_split(char *s, t_data *g);
 char		*read_cub_file(int fd);
-int			check_map(char *map, char *p_direction, int i, int count);
+int			check_map(t_data *g, char *p_direction, int i, int count);
 int			check_texture(t_data *data);
+int			is_duplicate(t_data *g, char **path);
 int			parse_args(t_data *data);
 void		get_position(char **map, t_data *cub);
 int			dda(t_data *cub);

@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:17:13 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/30 19:12:20 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/30 21:32:53 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 /* This function conducts a flood-fill operation on the map to ensure its
 walls are closed and no spaces leak out of the map boundaries. If the fill
 hits the edge of the map or an open space, the map is marked as invalid. */
-void	flood_fill(char **mapcopy, size_t i, size_t j, int *exit)
+void	flood_fill(char **mapcopy, size_t i, size_t j, int *err)
 {
 	if (i < 0 || j < 0 || !mapcopy[i] || (j >= ft_strlen(mapcopy[i]))
 		|| (mapcopy[i][j] && mapcopy[i][j] == ' '))
 	{
-		*exit = 1;
+		*err = 1;
 		return ;
 	}
 	else if (mapcopy[i][j] != '0')
 		return ;
 	mapcopy[i][j] = 'O';
-	flood_fill(mapcopy, i - 1, j, exit);
-	flood_fill(mapcopy, i + 1, j, exit);
-	flood_fill(mapcopy, i, j - 1, exit);
-	flood_fill(mapcopy, i, j + 1, exit);
+	flood_fill(mapcopy, i - 1, j, err);
+	flood_fill(mapcopy, i + 1, j, err);
+	flood_fill(mapcopy, i, j - 1, err);
+	flood_fill(mapcopy, i, j + 1, err);
 }
 
 /* Checks if a map has a valid route by converting player positions and
@@ -82,6 +82,18 @@ static int	check_single_texture(char *path, t_data	*g)
 		return (-1);
 	}
 	close(fd);
+	return (0);
+}
+
+int	is_duplicate(t_data *g, char **path)
+{
+	if (path && *path)
+	{
+		free(*path);
+		*path = NULL;
+		g->error_code = ERR_MULTIPLE_TEXTURE;
+		return (1);
+	}
 	return (0);
 }
 

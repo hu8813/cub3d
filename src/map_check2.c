@@ -37,21 +37,21 @@ int	process_map_chars(char *m, int i, char *p_direction, int count)
 	return (i);
 }
 
-int	check_map(char *map, char *pos, int i, int count)
+int	check_map(t_data *g, char *pos, int i, int count)
 {
 	char	**tmp;
 
-	if (!map)
+	if (!g->tmp_map)
 		return (-1);
-	i = process_map_chars(map, i, pos, count);
-	if (i == -1)
-		return (free(map), -1);
-	if (map && map[i])
-		return (free(map), -1);
-	tmp = ft_split(map, '\n');
-	if (!tmp)
-		return (free(map), -1);
-	return (check_valid_route(tmp, map));
+	i = process_map_chars(g->tmp_map, i, pos, count);
+	if (i == -1 && g->tmp_map)
+		return (-1);
+	if (g->tmp_map && g->tmp_map[i])
+		return (-1);
+	tmp = ft_split(g->tmp_map, '\n');
+	if (!tmp && g->tmp_map)
+		return (-1);
+	return (check_valid_route(tmp, g->tmp_map));
 }
 
 // Hilfsfunktion

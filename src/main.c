@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 15:12:05 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/30 19:05:41 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/30 20:25:57 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ static void	init_struct(t_data *g)
 	g->c_color[1] = -1;
 	g->c_color[2] = -1;
 	g->map = 0;
+	g->tmp_map = 0;
 	g->p_direction = 0;
 	g->key = 0;
 	g->move = 0;

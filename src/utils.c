@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 09:23:22 by huaydin           #+#    #+#             */
-/*   Updated: 2023/09/30 19:08:26 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/30 19:45:57 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ void	ft_error(char *errorcode, t_data *g)
 		ft_putendl_fd("Error\nInvalid texture file, not found", 2);
 	else if (g->error_code == ERR_FILE_NOT_FOUND)
 		ft_putendl_fd("Error\nInvalid texture file, not readable", 2);
-	if (errorcode && !g->error_code)
-		ft_putendl_fd("Error", 2);
 	if (errorcode)
+	{
+		if (!g->error_code)
+			ft_putendl_fd("Error", 2);
 		ft_putendl_fd(errorcode, 2);
+	}
 	if (g)
 		ft_exit(g);
 	exit(1);

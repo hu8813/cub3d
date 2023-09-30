@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:06:16 by huaydin           #+#    #+#             */
-/*   Updated: 2023/09/30 18:44:22 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/30 19:13:25 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,11 @@ int	prepare_map_data(char *s, t_data *g, int *i)
 	if (!tmp)
 		return (1);
 	if (check_map(tmp, &g->p_direction, 0, 0))
-		return (free(tmp), 1);
+	{
+		g->error_code = ERR_INVALID_MAP;
+		free(tmp);
+		return (1);
+	}
 	if (tmp)
 		free(tmp);
 	g->map = ft_split(&s[*i], '\n');

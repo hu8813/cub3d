@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:17:13 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/29 11:39:03 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/30 19:01:25 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	check_valid_route(char **map, char *str)
 }
 
 // Checks if a single texture file exists and can be read.
-static int	check_single_texture(char *path)
+static int	check_single_texture(char *path, t_data	*g)
 {
 	int		fd;
 	char	c;
@@ -72,14 +72,12 @@ static int	check_single_texture(char *path)
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_putendl_fd("Error\nCannot open file ", 2);
-		ft_putendl_fd(path, 2);
+		g->error_code = ERR_FILE_NOT_FOUND;
 		return (-1);
 	}
 	else if (read(fd, &c, 1) == -1)
 	{
-		ft_putendl_fd("Error\nCannot read file ", 2);
-		ft_putendl_fd(path, 2);
+		g->error_code = ERR_FILE_READ;
 		close(fd);
 		return (-1);
 	}
@@ -89,15 +87,15 @@ static int	check_single_texture(char *path)
 
 /* Validates each texture path (north, south, west, and east) by checking
 if the corresponding files exist and can be read. */
-int	check_texture(t_data *data)
+int	check_texture(t_data *g)
 {
-	if (check_single_texture(data->no_path) == -1)
+	if (check_single_texture(g->no_path, g) == -1)
 		return (-1);
-	if (check_single_texture(data->so_path) == -1)
+	if (check_single_texture(g->so_path, g) == -1)
 		return (-1);
-	if (check_single_texture(data->we_path) == -1)
+	if (check_single_texture(g->we_path, g) == -1)
 		return (-1);
-	if (check_single_texture(data->ea_path) == -1)
+	if (check_single_texture(g->ea_path, g) == -1)
 		return (-1);
 	return (0);
 }

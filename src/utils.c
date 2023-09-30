@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 09:23:22 by huaydin           #+#    #+#             */
-/*   Updated: 2023/09/29 11:38:20 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/30 19:08:26 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,24 @@ int	ft_isspace(int c)
 
 /* if 1st parameter is not 0, prints an error message
 if 2nd parameter is not 0, frees the struct */
-void	ft_error(char *errorcode, t_data *data)
+void	ft_error(char *errorcode, t_data *g)
 {
+	if (g->error_code == ERR_INVALID_COLOR)
+		ft_putendl_fd("Error\nInvalid Floor or Ceil color in map file", 2);
+	else if (g->error_code == ERR_INVALID_TEXTURE)
+		ft_putendl_fd("Error\nInvalid texture file in map file", 2);
+	else if (g->error_code == ERR_INVALID_MAP)
+		ft_putendl_fd("Error\nInvalid map", 2);
+	else if (g->error_code == ERR_FILE_READ)
+		ft_putendl_fd("Error\nInvalid texture file, not found", 2);
+	else if (g->error_code == ERR_FILE_NOT_FOUND)
+		ft_putendl_fd("Error\nInvalid texture file, not readable", 2);
+	if (errorcode && !g->error_code)
+		ft_putendl_fd("Error", 2);
 	if (errorcode)
 		ft_putendl_fd(errorcode, 2);
-	if (data)
-		ft_exit(data);
+	if (g)
+		ft_exit(g);
 	exit(1);
 }
 

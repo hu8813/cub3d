@@ -86,19 +86,15 @@ int	extract_colors_from_string(char *s, int rgb[3], char *tmp, int *i)
 			tmp[j] = '\0';
 			rgb[ind] = check_overflow(tmp, atoi(tmp));
 			ft_memset(tmp, 0, ft_strlen(tmp));
-			ind++;
-			printf("%d %d %d\n", *i, j, ind);
-			if (ind == 3 && s[*i] == '\n')
+			if (ind == 2 && s[*i] == '\n' && rgb[ind] != -1)
 				return (0);
-			else if (ind == 3 && s[*i] != '\n')
+			else if (rgb[ind] == -1 || (ind == 2 && s[*i] != '\n'))
 				return (1);
+			ind++;
 			j = 0;
 		}
 		else if (s[*i] != ' ' && s[*i] != '\t')
-		{
-			tmp[j] = s[*i];
-			j++;
-		}
+			tmp[j++] = s[*i];
 		(*i)++;
 	}
 	return (0);

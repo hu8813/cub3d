@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 15:12:05 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/30 18:28:14 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/30 19:05:41 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,9 +126,9 @@ int	main(int argc, char **argv)
 		exit(1);
 	}
 	init_struct(&g);
-	if (parse_args(argv[1], &g) != 0)
-		ft_error("Error\nParsing failed, map error", &g);
+	if (parse_args(&g) != 0)
+		ft_error("Parsing failed, map error", &g);
 	if (init_game(&g) == 0)
-		ft_error("Error\nInitialisation failed", &g);
+		ft_error("Initialisation failed", &g);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 06:57:31 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/30 18:29:25 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/30 19:06:12 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,15 @@ ft_calloc, ft_putendl_fd, ft_substr, ft_strdup, ft_strjoin */
 /* speed of the movement of the player, when w, a, s or d is pressed*/
 # define SPEED 0.06
 
-typedef enum e_error_codes {
-    SUCCESS = 0,
-    ERR_FILE_NOT_FOUND,
-    ERR_FILE_READ,
-    ERR_INVALID_TEXTURE,
-    ERR_INVALID_MAP,
-    ERR_INVALID_COLOR,
-    ERR_DUPLICATE_FLOOR,
-    ERR_DUPLICATE_CEIL,
-} t_error_codes;
+typedef enum e_error_codes
+{
+	SUCCESS = 0,
+	ERR_FILE_NOT_FOUND,
+	ERR_FILE_READ,
+	ERR_INVALID_TEXTURE,
+	ERR_INVALID_MAP,
+	ERR_INVALID_COLOR,
+}			t_error_codes;
 
 /**/
 typedef struct s_pic
@@ -108,28 +107,28 @@ typedef struct s_data
 	char	*ea_path;
 }			t_data;
 
-int		map_split(char *s, t_data *g);
-char	*read_cub_file(int fd);
-int		check_map(char *map, char *p_direction, int i, int count);
-int		check_texture(t_data *data);
-int		parse_args(char *map_file, t_data *data);
-void	get_position(char **map, t_data *cub);
-int		dda(t_data *cub);
-void	key(int key, t_data *cub, double temp);
-t_img	*ft_create_img(t_data *cub, int width, int height, int x);
-int		render(void *param);
-void	set_pos(t_data *cub);
-void	set_colors(t_data *cub);
-int		ft_exit(t_data *cub);
-void	ft_free_all(char **s, char *s1, char *s2, char *s3);
-void	ft_error(char *errorcode, t_data *data);
-int		ft_strchr_idx(char *s, int c);
-int		ft_isspace(int c);
-int		check_overflow(char *str, int num);
-int		get_color(char *s, int rgb[3], int *k);
-int		pre_check(char *s);
-void	flood_fill(char **mapcopy, size_t i, size_t j, int *exit);
-int		check_valid_route(char **map, char *str);
-int		put_texture(t_data *g, float start, int line, t_img *texture);
+int			map_split(char *s, t_data *g);
+char		*read_cub_file(int fd);
+int			check_map(char *map, char *p_direction, int i, int count);
+int			check_texture(t_data *data);
+int			parse_args(t_data *data);
+void		get_position(char **map, t_data *cub);
+int			dda(t_data *cub);
+void		key(int key, t_data *cub, double temp);
+t_img		*ft_create_img(t_data *cub, int width, int height, int x);
+int			render(void *param);
+void		set_pos(t_data *cub);
+void		set_colors(t_data *cub);
+int			ft_exit(t_data *cub);
+void		ft_free_all(char **s, char *s1, char *s2, char *s3);
+void		ft_error(char *errorcode, t_data *data);
+int			ft_strchr_idx(char *s, int c);
+int			ft_isspace(int c);
+int			check_overflow(char *str, int num);
+int			get_color(char *s, int rgb[3], int *k);
+int			pre_check(char *s);
+void		flood_fill(char **mapcopy, size_t i, size_t j, int *exit);
+int			check_valid_route(char **map, char *str);
+int			put_texture(t_data *g, float start, int line, t_img *texture);
 
 #endif

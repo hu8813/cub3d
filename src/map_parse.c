@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:06:16 by huaydin           #+#    #+#             */
-/*   Updated: 2023/09/30 18:30:06 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/09/30 18:44:22 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,16 @@ int	assign_textures(char *s, t_data *g, int *i)
 			g->ea_path = get_texture(&s[*i + 3], g, i);
 		else if (!ft_strncmp(&s[*i], "F ", 2)
 			&& get_color(&s[*i + 2], g->f_color, i))
+		{
+			g->error_code = ERR_INVALID_COLOR;
 			return (1);
+		}
 		else if (!ft_strncmp(&s[*i], "C ", 2)
 			&& get_color(&s[*i + 2], g->c_color, i))
+		{
+			g->error_code = ERR_INVALID_COLOR;
 			return (1);
+		}
 		(*i)++;
 	}
 	return (0);

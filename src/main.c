@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 15:12:05 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/30 20:25:57 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/02 22:14:38 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static int	key_pressed(int key, t_data *g)
 	else if (key == XK_Right)
 		g->rotate[2] = '1';
 	g->key = key;
+	if (key == XK_Escape)
+		ft_exit(g);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:13:36 by huaydin           #+#    #+#             */
-/*   Updated: 2023/09/27 22:13:44 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/02 22:16:22 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ t_img	*ft_create_img(t_data *g, int width, int height, int x)
 /* Implements the Digital Differential Analyzer (DDA) algorithm for raycasting,
 tracing the path of a ray until it hits a wall or goes out of bounds.
 Returns 1 if a wall is hit, 0 otherwise. */
-int	dda(t_data *g)
+int	calculate_dda(t_data *g)
 {
 	while (1)
 	{

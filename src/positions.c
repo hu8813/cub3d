@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:30:27 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/29 10:29:21 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/02 22:13:23 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static void	go(t_data *g, double newy, double newX)
 
 /* Handles player movement and rotation based on the key pressed. Updates
 the player's position and direction in the game state `t_data *g`. */
-void	key(int key, t_data *g, double temp)
+void	handle_key(int key, t_data *g, double temp)
 {
 	if ((g->move == XK_w || key == XK_w) && g->y)
 		go(g, g->y + g->y_dir * SPEED, g->x + g->x_dir * SPEED);

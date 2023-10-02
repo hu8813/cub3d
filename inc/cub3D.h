@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 06:57:31 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/30 21:26:39 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/02 22:16:33 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,7 @@ int			check_texture(t_data *data);
 int			is_duplicate(t_data *g, char **path);
 int			parse_args(t_data *data);
 void		get_position(char **map, t_data *cub);
-int			dda(t_data *cub);
-void		key(int key, t_data *cub, double temp);
+int			calculate_dda(t_data *cub);
 t_img		*ft_create_img(t_data *cub, int width, int height, int x);
 int			render(void *param);
 void		set_pos(t_data *cub);
@@ -131,5 +130,6 @@ int			pre_check(char *s);
 void		flood_fill(char **mapcopy, size_t i, size_t j, int *exit);
 int			check_valid_route(char **map, char *str);
 int			put_texture(t_data *g, float start, int line, t_img *texture);
+void		handle_key(int key, t_data *g, double temp);
 
 #endif

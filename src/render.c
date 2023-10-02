@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:28:30 by eelasam           #+#    #+#             */
-/*   Updated: 2023/10/02 21:00:44 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/02 22:16:46 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	calculate_ray_values(t_data *g)
 		g->y_step = -1;
 		g->y_side = (g->y - g->y_map) * g->y_delta;
 	}
-	if (dda(g))
+	if (calculate_dda(g))
 	{
 		if (!g->side)
 			g->wall = (g->x_map - g->x + (1 - g->x_step) / 2) / g->x_ray;
@@ -121,9 +121,7 @@ int	render(void *param)
 		mlx_destroy_image(g->mlx, g->pic->g);
 	}
 	free(g->pic);
-	if (g->key && g->key == XK_Escape)
-		ft_exit(g);
-	else if (g->key && g->key != XK_Escape)
-		key(g->key, g, g->x_dir);
+	if (g->key)
+		handle_key(g->key, g, g->x_dir);
 	return (0);
 }

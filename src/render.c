@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:28:30 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/28 16:05:40 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/02 21:00:44 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,10 @@ static void	draw(t_data *g, int x)
 	if (g->wall < 0.5)
 		return ;
 	line = (int)(g->height / g->wall);
-	if (line > 200000)
-		line = 200000;
-	start = -line / 2 + g->height / 2;
+	start = (g->height - line) / 2;
 	if (start < 0)
 		start = 0;
-	end = line / 2 + g->height / 2;
+	end = (g->height + line) / 2;
 	if (end >= g->height)
 		end = g->height - 1;
 	while (start < end)
@@ -82,7 +80,7 @@ static void	raycast_columns(t_data *g)
 		g->x_map = (int)g->x;
 		g->y_map = (int)g->y;
 		x_camera = 2 * y / (double)g->width - 1;
-		g->x_ray = g->x_dir - -g->y_dir * x_camera;
+		g->x_ray = g->x_dir + g->y_dir * x_camera;
 		g->y_ray = g->y_dir - g->x_dir * x_camera;
 		calculate_ray_values(g);
 		draw(g, y);

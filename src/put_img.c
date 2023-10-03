@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   put_img.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:13:36 by huaydin           #+#    #+#             */
-/*   Updated: 2023/10/03 03:23:34 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/03 14:51:34 by eelasam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,12 @@ static void	*load_image(t_data *g, char *path, int *width, int *height)
 		return (0);
 	if (g && g->mlx && path && width && height)
 		img = mlx_xpm_file_to_image(g->mlx, path, width, height);
-	if (!img)
-		ft_error("Mlx failed", g);
+	if (!img || *height > 2000 || *width > 2000)
+	{
+		if (img)
+			mlx_destroy_image(g->mlx, img);
+		ft_error("Mlx image load failed", g);
+	}
 	return (img);
 }
 

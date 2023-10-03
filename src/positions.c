@@ -107,9 +107,9 @@ the player's position and direction in the game state `t_data *g`. */
 void	handle_key(int key, t_data *g, double temp)
 {
 	if ((g->move == XK_w || key == XK_w) && g->y)
-		go(g, g->y + g->y_dir * SPEED, g->x - g->x_dir * SPEED);
+		go(g, g->y + g->y_dir * SPEED, g->x + g->x_dir * SPEED);
 	else if (g->move && (key == XK_s))
-		go(g, g->y - g->y_dir * SPEED / 2, g->x + g->x_dir * SPEED / 2);
+		go(g, g->y - g->y_dir * SPEED / 2, g->x - g->x_dir * SPEED / 2);
 	else if (key == XK_d)
 		go(g, g->y - g->x_dir * SPEED / 2, g->x + g->y_dir * SPEED / 2);
 	else if (key == XK_a)

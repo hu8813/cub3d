@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:28:30 by eelasam           #+#    #+#             */
-/*   Updated: 2023/10/03 09:58:07 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/03 17:12:57 by eelasam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 the results of ray casting. This determines the vertical slice of
 the texture that should be displayed for each column
 of pixels on the screen. */
-static void	draw(t_data *g, int x)
+/* static void	draw(t_data *g, int x)
 {
 	int	line;
 	int	start;
@@ -37,6 +37,29 @@ static void	draw(t_data *g, int x)
 				g->south);
 		start++;
 	}
+} */
+
+static void    draw(t_data *g, int x)
+{
+    int    line;
+    int    start;
+    int    end;
+
+    if (g->wall < 0.03)
+        return ;
+    line = (int)(g->height / g->wall);
+    start = -line / 2 + g->height / 2;
+    if (start < 0)
+        start = 0;
+    end = line / 2 + g->height / 2;
+    if (end >= g->height)
+        end = g->height - 1;
+    while (start  < end)
+    {
+        g->pic->buf[(g->pic->width * start) + x] = put_texture(g, start, line,
+                g->south);
+        start++;
+    }
 }
 
 /*Uses ray casting algorithms to calculate where rays intersect with map

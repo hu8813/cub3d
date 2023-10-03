@@ -68,7 +68,7 @@ void	set_colors(t_data *g)
 	i = 0;
 	if (!g)
 		return ;
-	while (i < (g->width * g->height) / 2)
+	while (i < (g->width * g->height) / 2	)
 	{
 		g->pic->buf[i] = g->c_color[0] << 16;
 		g->pic->buf[i] += g->c_color[1] << 8;
@@ -77,6 +77,7 @@ void	set_colors(t_data *g)
 	}
 	while (i < g->width * g->height)
 	{
+		g->pic->buf[i] = 200 << 24;
 		g->pic->buf[i] = g->f_color[0] << 16;
 		g->pic->buf[i] += g->f_color[1] << 8;
 		g->pic->buf[i] += g->f_color[2];

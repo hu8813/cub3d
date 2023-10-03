@@ -20,6 +20,7 @@ $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c | $(DIR_OBJ)
 
 $(NAME): $(OBJ) $(LIBFT)
 	$(CC) $(OBJ) $(MLX) $(LIBFT) -o $(NAME)
+	echo "Usage:\nmake test  OR  ./cub3D maps/map_debug.xpm"
 
 $(LIBFT):
 	@make -C libft/

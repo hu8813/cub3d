@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   positions.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:30:27 by eelasam           #+#    #+#             */
-/*   Updated: 2023/10/03 10:16:29 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/03 14:17:08 by eelasam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,9 @@ void	handle_key(int key, t_data *g, double temp)
 		go(g, g->y + g->y_dir * SPEED, g->x + g->x_dir * SPEED);
 	else if (g->move && (key == XK_s))
 		go(g, g->y - g->y_dir * SPEED / 2, g->x - g->x_dir * SPEED / 2);
-	else if (key == XK_d)
-		go(g, g->y - g->x_dir * SPEED / 2, g->x + g->y_dir * SPEED / 2);
 	else if (key == XK_a)
+		go(g, g->y - g->x_dir * SPEED / 2, g->x + g->y_dir * SPEED / 2);
+	else if (key == XK_d)
 		go(g, g->y + g->x_dir * SPEED / 2, g->x - g->y_dir * SPEED / 2);
 	if (g->rotate[2] == '1' && (key == XK_Right))
 	{

@@ -110,9 +110,9 @@ void	handle_key(int key, t_data *g, double temp)
 		go(g, g->y + g->y_dir * SPEED, g->x + g->x_dir * SPEED);
 	else if (g->move && (key == XK_s))
 		go(g, g->y - g->y_dir * SPEED / 2, g->x - g->x_dir * SPEED / 2);
-	else if (key == XK_a)
-		go(g, g->y - g->x_dir * SPEED / 2, g->x + g->y_dir * SPEED / 2);
 	else if (key == XK_d)
+		go(g, g->y - g->x_dir * SPEED / 2, g->x + g->y_dir * SPEED / 2);
+	else if (key == XK_a)
 		go(g, g->y + g->x_dir * SPEED / 2, g->x - g->y_dir * SPEED / 2);
 	if (g->rotate[0] == '1' && (key == XK_Left))
 	{

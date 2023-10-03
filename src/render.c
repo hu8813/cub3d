@@ -6,7 +6,7 @@
 /*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:28:30 by eelasam           #+#    #+#             */
-/*   Updated: 2023/10/03 17:35:43 by eelasam          ###   ########.fr       */
+/*   Updated: 2023/10/03 17:39:26 by eelasam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,6 @@
 the results of ray casting. This determines the vertical slice of
 the texture that should be displayed for each column
 of pixels on the screen. */
-/* static void	draw(t_data *g, int x)
-{
-	int	line;
-	int	start;
-	int	end;
-
-	if (g->wall < 0.5)
-		return ;
-	line = (int)(g->height / g->wall);
-	start = (g->height - line) / 2;
-	if (start < 0)
-		start = 0;
-	end = (g->height + line) / 2;
-	if (end >= g->height)
-		end = g->height - 1;
-	while (start < end)
-	{
-		g->pic->buf[(g->pic->width * start) + x] = put_texture(g, start, line,
-				g->south);
-		start++;
-	}
-} */
-
 static void    draw(t_data *g, int x)
 {
     int    line;

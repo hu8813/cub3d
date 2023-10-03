@@ -92,7 +92,7 @@ static void	go(t_data *g, double newy, double newX)
 	{
 		if (g->y > 1.5)
 			g->y = newy;
-		else 
+		else
 			g->y = newy + 0.04;
 		if ((int)newX >= 0 && g->map[(int)newy][(int)(newX)]
 			&& g->map[(int)newy][(int)(newX)] != ' '

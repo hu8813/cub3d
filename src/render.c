@@ -80,7 +80,7 @@ static void	raycast_columns(t_data *g)
 		g->x_map = (int)g->x;
 		g->y_map = (int)g->y;
 		x_camera = 2 * y / (double)g->width - 1;
-		g->x_ray = - g->x_dir + g->y_dir * x_camera;
+		g->x_ray = -g->x_dir + g->y_dir * x_camera;
 		g->y_ray = g->y_dir + g->x_dir * x_camera;
 		calculate_ray_values(g);
 		draw(g, y);

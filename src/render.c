@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:28:30 by eelasam           #+#    #+#             */
-/*   Updated: 2023/10/02 22:16:46 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/03 03:23:34 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,10 @@ int	render(void *param)
 		ft_error("Mlx init img failed", g);
 	set_colors(g);
 	raycast_columns(g);
-	if (g->pic->g)
+	if (g->pic->img)
 	{
-		mlx_put_image_to_window(g->mlx, g->win, g->pic->g, 0, 0);
-		mlx_destroy_image(g->mlx, g->pic->g);
+		mlx_put_image_to_window(g->mlx, g->win, g->pic->img, 0, 0);
+		mlx_destroy_image(g->mlx, g->pic->img);
 	}
 	free(g->pic);
 	if (g->key)

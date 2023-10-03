@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:13:36 by huaydin           #+#    #+#             */
-/*   Updated: 2023/10/02 22:16:22 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/03 03:23:34 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,16 @@ static t_img	*init_new_img(t_data *g, int width, int height, int x)
 	new->width = width;
 	new->height = height;
 	if (x == 1)
-		new->g = load_image(g, g->no_path, &new->width, &new->height);
+		new->img = load_image(g, g->no_path, &new->width, &new->height);
 	else if (x == 2)
-		new->g = load_image(g, g->we_path, &new->width, &new->height);
+		new->img = load_image(g, g->we_path, &new->width, &new->height);
 	else if (x == 3)
-		new->g = load_image(g, g->ea_path, &new->width, &new->height);
+		new->img = load_image(g, g->ea_path, &new->width, &new->height);
 	else if (x == 4)
-		new->g = load_image(g, g->so_path, &new->width, &new->height);
+		new->img = load_image(g, g->so_path, &new->width, &new->height);
 	else if (g->mlx)
-		new->g = mlx_new_image(g->mlx, width, height);
-	if (!new->g)
+		new->img = mlx_new_image(g->mlx, width, height);
+	if (!new->img)
 		ft_error("Mlx failed", g);
 	return (new);
 }
@@ -106,9 +106,9 @@ t_img	*ft_create_img(t_data *g, int width, int height, int x)
 	if (!g)
 		return (0);
 	new = init_new_img(g, width, height, x);
-	if (!new || !new->g)
+	if (!new || !new->img)
 		ft_error("Mlx init img failed", g);
-	new->buf = (int *)mlx_get_data_addr(new->g, &bpp, &x, &endian);
+	new->buf = (int *)mlx_get_data_addr(new->img, &bpp, &x, &endian);
 	if (!new->buf)
 		ft_error("Mlx failed", g);
 	return (new);

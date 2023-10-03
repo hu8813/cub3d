@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 09:23:22 by huaydin           #+#    #+#             */
-/*   Updated: 2023/09/30 21:27:36 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/03 03:23:34 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,14 @@ int	ft_exit(t_data *g)
 	{
 		if (g->mlx)
 		{
-			if (g->north && g->north->g)
-				mlx_destroy_image(g->mlx, g->north->g);
-			if (g->east && g->east->g)
-				mlx_destroy_image(g->mlx, g->east->g);
-			if (g->west && g->west->g)
-				mlx_destroy_image(g->mlx, g->west->g);
-			if (g->south && g->south->g)
-				mlx_destroy_image(g->mlx, g->south->g);
+			if (g->north && g->north->img)
+				mlx_destroy_image(g->mlx, g->north->img);
+			if (g->east && g->east->img)
+				mlx_destroy_image(g->mlx, g->east->img);
+			if (g->west && g->west->img)
+				mlx_destroy_image(g->mlx, g->west->img);
+			if (g->south && g->south->img)
+				mlx_destroy_image(g->mlx, g->south->img);
 			if (g->win)
 				mlx_destroy_window(g->mlx, g->win);
 			mlx_destroy_display(g->mlx);

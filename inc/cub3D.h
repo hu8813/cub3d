@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 06:57:31 by eelasam           #+#    #+#             */
-/*   Updated: 2023/10/02 22:16:33 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/03 03:23:07 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ typedef struct s_pic
 {
 	int		width;
 	int		height;
-	void	*mlx;
-	void	*win;
-	void	*g;
+	void	*img;
 	int		*buf;
 }			t_img;
 

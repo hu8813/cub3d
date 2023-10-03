@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_read.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 19:55:44 by huaydin           #+#    #+#             */
-/*   Updated: 2023/09/30 19:05:55 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/03 17:30:33 by eelasam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ int	parse_args(t_data *g)
 		free(map_content);
 		return (-1);
 	}
-	close(g->fd);
+	if (g->fd != -1)
+		close(g->fd);
 	free(map_content);
 	return (0);
 }

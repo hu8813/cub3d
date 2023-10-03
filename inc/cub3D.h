@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 06:57:31 by eelasam           #+#    #+#             */
-/*   Updated: 2023/10/03 03:23:07 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/03 09:55:43 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ typedef struct s_data
 	char	*tmp_map;
 	char	**map;
 	int		fd;
-	int		side;
 	int		width;
 	int		height;
+	int		side;
 	double	wall;
 	double	x;
 	int		x_map;

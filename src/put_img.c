@@ -41,7 +41,7 @@ int	put_texture(t_data *g, float start, int line, t_img *texture)
 		x_text = texture->width - x_text - 1;
 	color = ((int)start << 8) - (g->height << 7) + (line << 7);
 	y_text = ((color * texture->height) / line) >> 8;
-	color = texture->buf[(int)(y_text * texture->width + x_text)];
+	color = texture->addr[(int)(y_text * texture->width + x_text)];
 	return (color);
 }
 
@@ -101,7 +101,7 @@ static t_img	*init_new_img(t_data *g, int width, int height, int x)
 
 /* Creates a new image structure intended for rendering. It initializes
 the structure, loads the appropriate texture, and also retrieves
-the data buffer where pixel information will be written. */
+the data addrfer where pixel information will be written. */
 t_img	*ft_create_img(t_data *g, int width, int height, int x)
 {
 	t_img	*new;
@@ -115,8 +115,8 @@ t_img	*ft_create_img(t_data *g, int width, int height, int x)
 	new = init_new_img(g, width, height, x);
 	if (!new || !new->img)
 		ft_error("Mlx init img failed", g);
-	new->buf = (int *)mlx_get_data_addr(new->img, &bpp, &x, &endian);
-	if (!new->buf)
+	new->addr = (int *)mlx_get_data_addr(new->img, &bpp, &x, &endian);
+	if (!new->addr)
 		ft_error("Mlx failed", g);
 	return (new);
 }

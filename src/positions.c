@@ -59,7 +59,7 @@ void	set_pos(t_data *g)
 	}
 }
 
-/* Initializes the color buffer for the ceiling and floor based on the colors
+/* Initializes the color addrfer for the ceiling and floor based on the colors
 defined in the game state `t_data *g`. */
 void	set_colors(t_data *g)
 {
@@ -70,16 +70,16 @@ void	set_colors(t_data *g)
 		return ;
 	while (i < (g->width * g->height) / 2)
 	{
-		g->pic->buf[i] = g->c_color[0] << 16;
-		g->pic->buf[i] += g->c_color[1] << 8;
-		g->pic->buf[i] += g->c_color[2];
+		g->pic->addr[i] = g->c_color[0] << 16;
+		g->pic->addr[i] += g->c_color[1] << 8;
+		g->pic->addr[i] += g->c_color[2];
 		i++;
 	}
 	while (i < g->width * g->height)
 	{
-		g->pic->buf[i] = g->f_color[0] << 16;
-		g->pic->buf[i] += g->f_color[1] << 8;
-		g->pic->buf[i] += g->f_color[2];
+		g->pic->addr[i] = g->f_color[0] << 16;
+		g->pic->addr[i] += g->f_color[1] << 8;
+		g->pic->addr[i] += g->f_color[2];
 		i++;
 	}
 }

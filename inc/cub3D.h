@@ -15,10 +15,10 @@
 
 # include <stdio.h>
 
-/* write, read, */
+/* write, read */
 # include <unistd.h>
 
-/* File Manipulation Functions: open (O_CREAT, O_WRONLY, O_APPEND) */
+/* File Manipulation Functions: open (O_RDONLY) */
 # include <fcntl.h>
 
 /* sin, cos for trigonometric calculations */
@@ -59,7 +59,7 @@ typedef struct s_pic
 	int		width;
 	int		height;
 	void	*img;
-	int		*buf;
+	int		*addr;
 }			t_img;
 
 typedef struct s_data

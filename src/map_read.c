@@ -32,30 +32,30 @@ concatenated to form the complete content string. */
 char	*read_cub_file(int fd)
 {
 	char	*map;
-	char	*buffer;
+	char	*addrfer;
 	char	*tmp;
 	int		bytes;
 
 	map = ft_calloc(1, 1);
 	if (!map)
 		return (0);
-	buffer = ft_calloc(1, 101);
-	if (!buffer)
+	addrfer = ft_calloc(1, 101);
+	if (!addrfer)
 		return (free(map), NULL);
 	bytes = 1;
 	while (bytes > 0)
 	{
-		bytes = read(fd, buffer, 100);
+		bytes = read(fd, addrfer, 100);
 		if (bytes == -1)
-			return (free(map), free(buffer), NULL);
-		buffer[bytes] = '\0';
+			return (free(map), free(addrfer), NULL);
+		addrfer[bytes] = '\0';
 		tmp = map;
-		map = ft_strjoin(map, buffer);
+		map = ft_strjoin(map, addrfer);
 		if (!map)
-			return (free(tmp), free(buffer), NULL);
+			return (free(tmp), free(addrfer), NULL);
 		free(tmp);
 	}
-	return (free(buffer), map);
+	return (free(addrfer), map);
 }
 
 /* Parses the .cub map file provided in the argument `map_file`. It reads 

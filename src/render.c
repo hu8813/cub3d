@@ -33,7 +33,7 @@ static void	draw(t_data *g, int x)
 		end = g->height - 1;
 	while (start < end)
 	{
-		g->pic->buf[(g->pic->width * start) + x] = put_texture(g, start, line,
+		g->pic->addr[(g->pic->width * start) + x] = put_texture(g, start, line,
 				g->south);
 		start++;
 	}

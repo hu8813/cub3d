@@ -41,21 +41,21 @@ the player's position character in the game state `t_data *g`. */
 void	set_pos(t_data *g)
 {
 	g->x_dir = 0;
-	g->y_dir = -0.66;
+	g->y_dir = -1;
 	if (g->p_direction == 'W')
 	{
-		g->x_dir = -0.66;
+		g->x_dir = -1;
 		g->y_dir = 0;
 	}
 	else if (g->p_direction == 'E')
 	{
-		g->x_dir = 0.66;
+		g->x_dir = 1;
 		g->y_dir = 0;
 	}
 	else if (g->p_direction == 'S')
 	{
 		g->x_dir = 0;
-		g->y_dir = 0.66;
+		g->y_dir = 1;
 	}
 }
 

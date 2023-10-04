@@ -39,14 +39,14 @@ int	put_texture(t_data *g, float start, int line, t_img *texture)
 		x_text = texture->width - x_text - 1;
 	else if (g->side == 1 && g->y_ray < 0)
 		x_text = texture->width - x_text - 1;
-	color = start * 256 - g->height * 128 + line * 128;
-	y_text = ((color * texture->height) / line) / 256;
+	color = ((int)start << 8) - (g->height << 7) + (line << 7);
+	y_text = ((color * texture->height) / line) >> 8;
 	color = texture->buf[(int)(y_text * texture->width + x_text)];
 	return (color);
 }
 
-/* Uses the MLX library to load an image from a file. This function 
-is essential for loading different textures used in the game world. 
+/* Uses the MLX library to load an image from a file. This function
+is essential for loading different textures used in the game world.
 It will return a pointer to the loaded image or fail if there are issues. */
 static void	*load_image(t_data *g, char *path, int *width, int *height)
 {
@@ -57,17 +57,17 @@ static void	*load_image(t_data *g, char *path, int *width, int *height)
 		return (0);
 	if (g && g->mlx && path && width && height)
 		img = mlx_xpm_file_to_image(g->mlx, path, width, height);
-	if (!img || *height >2000 || *width > 2000)
+	if (!img || *height > 1400 || *width > 1400)
 	{
 		if (img)
 			mlx_destroy_image(g->mlx, img);
-		ft_error("Mlx image load failed", g);
+		return (NULL);
 	}
 	return (img);
 }
 
-/* Allocates and initializes a new image structure, assigning the correct 
-texture based on the provided value 'x' which determines the type of texture 
+/* Allocates and initializes a new image structure, assigning the correct
+texture based on the provided value 'x' which determines the type of texture
 (north, west, east, south, etc.).
 It uses the `load_image` function to assist.*/
 static t_img	*init_new_img(t_data *g, int width, int height, int x)
@@ -92,12 +92,15 @@ static t_img	*init_new_img(t_data *g, int width, int height, int x)
 	else if (g->mlx)
 		new->img = mlx_new_image(g->mlx, width, height);
 	if (!new->img)
+	{
+		free(new);
 		ft_error("Mlx failed", g);
+	}
 	return (new);
 }
 
-/* Creates a new image structure intended for rendering. It initializes 
-the structure, loads the appropriate texture, and also retrieves 
+/* Creates a new image structure intended for rendering. It initializes
+the structure, loads the appropriate texture, and also retrieves
 the data buffer where pixel information will be written. */
 t_img	*ft_create_img(t_data *g, int width, int height, int x)
 {

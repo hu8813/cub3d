@@ -38,10 +38,10 @@ ft_calloc, ft_putendl_fd, ft_substr, ft_strdup, ft_strjoin */
 # include "../libft/libft.h"
 
 /* angle (instead degrees) to turn when left or right arrow is pressed */
-# define LR_ANGLE 0.03
+# define LR_ANGLE 0.01
 
 /* speed of the movement of the player, when w, a, s or d is pressed*/
-# define SPEED 0.06
+# define SPEED 0.03
 
 typedef enum e_error_codes
 {

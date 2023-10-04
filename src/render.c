@@ -16,27 +16,27 @@
 the results of ray casting. This determines the vertical slice of
 the texture that should be displayed for each column
 of pixels on the screen. */
-static void    draw(t_data *g, int x)
+static void	draw(t_data *g, int x)
 {
-    int    line;
-    int    start;
-    int    end;
+	int	line;
+	int	start;
+	int	end;
 
-    if (g->wall < 0.03)
-        return ;
-    line = (int)(g->height / g->wall);
-    start = -line / 2 + g->height / 2;
-    if (start < 0)
-        start = 0;
-    end = line / 2 + g->height / 2;
-    if (end >= g->height)
-        end = g->height - 1;
-    while (start  < end)
-    {
-        g->pic->buf[(g->pic->width * start) + x] = put_texture(g, start, line,
-                g->south);
-        start++;
-    }
+	if (g->wall < 0.03)
+		return ;
+	line = (int)(g->height / g->wall);
+	start = -line / 2 + g->height / 2;
+	if (start < 0)
+		start = 0;
+	end = line / 2 + g->height / 2;
+	if (end >= g->height)
+		end = g->height - 1;
+	while (start < end)
+	{
+		g->pic->buf[(g->pic->width * start) + x] = put_texture(g, start, line,
+				g->south);
+		start++;
+	}
 }
 
 /*Uses ray casting algorithms to calculate where rays intersect with map
@@ -93,11 +93,24 @@ static void	print_debug(t_data *g)
 
 	sprintf(result,
 		"x:%f y:%f x_dir:%f y_dir:%f x_map:%d y_map:%d x_step:%d y_step:%d \
-			x_ray:%f y_ray:%f x_delta:%f y_delta:%f x_side:%f \
-			y_side:%f wall:%f height:%d" \
-			, g->x, g->y, g->x_dir, g->y_dir, g->x_map, \
-			g->y_map, g->x_step, g->y_step, g->x_ray, g->y_ray, g->x_delta, \
-			g->y_delta, g->x_side, g->y_side, g->wall, g->height);
+		x_ray:%f y_ray:%f x_delta:%f y_delta:%f x_side:%f \
+		y_side:%f wall:%f height:%d",
+		g->x,
+		g->y,
+		g->x_dir,
+		g->y_dir,
+		g->x_map,
+		g->y_map,
+		g->x_step,
+		g->y_step,
+		g->x_ray,
+		g->y_ray,
+		g->x_delta,
+		g->y_delta,
+		g->x_side,
+		g->y_side,
+		g->wall,
+		g->height);
 	mlx_string_put(g->mlx, g->win, 10, 10, 0, result);
 }
 

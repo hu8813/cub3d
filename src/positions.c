@@ -68,7 +68,7 @@ void	set_colors(t_data *g)
 	i = 0;
 	if (!g)
 		return ;
-	while (i < (g->width * g->height) / 2	)
+	while (i < (g->width * g->height) / 2)
 	{
 		g->pic->buf[i] = g->c_color[0] << 16;
 		g->pic->buf[i] += g->c_color[1] << 8;
@@ -93,7 +93,7 @@ static void	go(t_data *g, double newy, double newX)
 		if (g->y > 1.5)
 			g->y = newy;
 		else
-			g->y = newy + 0.02;
+			g->y = newy + 0.01;
 		if ((int)newX >= 0 && g->map[(int)newy][(int)(newX)]
 			&& g->map[(int)newy][(int)(newX)] != ' '
 			&& g->map[(int)newy][(int)(newX)] != '1')

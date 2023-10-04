@@ -1,5 +1,5 @@
 NAME		= cub3D
-CC	  		= clang
+CC	  		= cc
 CFLAGS  	= -Wall -Wextra -Werror -MMD -Ofast -march=native 
 #last 2 flags are only for optimization, makes the game faster
 

@@ -16,6 +16,8 @@
 state based on which key was pressed (e.g., movement or rotation).*/
 static int	key_pressed(int key, t_data *g)
 {
+	if (key == XK_Escape)
+		ft_exit(g);
 	if (key == XK_w || key == XK_a || key == XK_s || key == XK_d)
 	{
 		g->move = key;
@@ -25,8 +27,6 @@ static int	key_pressed(int key, t_data *g)
 	else if (key == XK_Right)
 		g->rotate[2] = '1';
 	g->key = key;
-	if (key == XK_Escape)
-		ft_exit(g);
 	return (0);
 }
 
@@ -48,9 +48,9 @@ static int	key_released(int key, t_data *g)
 	else if (g->move)
 		g->key = g->move;
 	if (key == XK_Left)
-		g->rotate[0] = '0';
+		g->rotate[0] = 0;
 	if (key == XK_Right)
-		g->rotate[2] = '0';
+		g->rotate[2] = 0;
 	return (0);
 }
 
@@ -69,8 +69,8 @@ static int	init_game(t_data *g)
 	if (!g->win)
 		return (0);
 	g->north = ft_create_img(g, 0, 0, 1);
-	g->east = ft_create_img(g, 0, 0, 2);
-	g->west = ft_create_img(g, 0, 0, 3);
+	g->west = ft_create_img(g, 0, 0, 2);
+	g->east = ft_create_img(g, 0, 0, 3);
 	g->south = ft_create_img(g, 0, 0, 4);
 	if (!g->north || !g->east || !g->south || !g->west)
 		return (0);
@@ -106,9 +106,9 @@ static void	init_struct(t_data *g)
 	g->p_direction = 0;
 	g->key = 0;
 	g->move = 0;
-	g->rotate[0] = '0';
-	g->rotate[1] = '0';
-	g->rotate[2] = '0';
+	g->rotate[0] = 0;
+	g->rotate[1] = 0;
+	g->rotate[2] = 0;
 }
 
 int	main(int argc, char **argv)

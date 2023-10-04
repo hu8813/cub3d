@@ -1,17 +1,19 @@
-NAME	= cub3D
-CC	  = clang
-CFLAGS  = -Wall -Wextra -Werror -MMD -Ofast -march=native #last 2 are optimization flags
-MLX	 = -lmlx -lXext -lX11 -lm
+NAME		= cub3D
+CC	  		= clang
+CFLAGS  	= -Wall -Wextra -Werror -MMD -Ofast -march=native 
+#last 2 flags are only for optimization, makes the game faster
+
+MLX	 		= -lmlx -lXext -lX11 -lm
 LIBFT		= libft/libft.a
 
-DIR_SRC = src
-DIR_OBJ = .obj
+DIR_SRC 	= src
+DIR_OBJ 	= .obj
 
-SRC	 = 	utils.c utils2.c  positions.c main.c map_check2.c \
-		render.c map_check.c  map_read.c map_parse.c put_img.c
+SRC	 		= 	utils.c utils2.c  positions.c main.c map_check2.c \
+				render.c map_check.c  map_read.c map_parse.c put_img.c
 
-OBJ	 = $(SRC:%.c=$(DIR_OBJ)/%.o)
-DEP	 = $(SRC:%.c=$(DIR_OBJ)/%.d)
+OBJ			= $(SRC:%.c=$(DIR_OBJ)/%.o)
+DEP	 		= $(SRC:%.c=$(DIR_OBJ)/%.d)
 
 all: $(NAME)
 
@@ -41,6 +43,6 @@ re: fclean all
 test: all
 	./cub3D maps/map_kaya_ehab.cub
 
--include $(DEP)
-
 .PHONY: all clean fclean re
+
+-include $(DEP)

@@ -48,9 +48,15 @@ static int	key_released(int key, t_data *g)
 	else if (g->move)
 		g->key = g->move;
 	if (key == XK_Left)
-		g->rotate[0] = 0;
+	{	g->rotate[0] = 0;
+		if (g->key== XK_Left)
+			g->key=0;	
+	}
 	if (key == XK_Right)
-		g->rotate[2] = 0;
+	{	g->rotate[2] = 0;
+		if (g->key == XK_Right)	
+			g->key=0;	
+	}
 	return (0);
 }
 

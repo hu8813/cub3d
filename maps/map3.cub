@@ -1,13 +1,10 @@
-
 NO ./img/east3.xpm
-
-SO    ./img/west3.xpm
+SO ./img/west3.xpm
 WE ./img/north3.xpm
-EA                  ./img/south3.xpm
+EA ./img/south3.xpm
 
 C 135,206,235
 F 34,139,34
-
 
 111111111111111111111111111111
 111111111000100000000000011111

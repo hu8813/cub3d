@@ -1,16 +1,10 @@
-
-   NO       img/north.xpm
-
-SO    img/south.xpm  
-
+NO img/north.xpm
+SO img/south.xpm  
 WE img/west.xpm 
-
 EA img/east.xpm
-
 
 C 135,206,235
 F 34,139,34
-
 
 1111111111111111111111111111111
 1000000000110000000000000000011

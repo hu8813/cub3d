@@ -94,7 +94,7 @@ static void	print_debug(t_data *g)
 	sprintf(result,
 		"x:%f y:%f x_dir:%f y_dir:%f x_map:%d y_map:%d x_step:%d y_step:%d \
 		x_ray:%f y_ray:%f x_delta:%f y_delta:%f x_side:%f \
-		y_side:%f wall:%f height:%d",
+		y_side:%f wall:%f side: %d, height:%d, key:%d, move:%d",
 		g->x,
 		g->y,
 		g->x_dir,
@@ -110,7 +110,10 @@ static void	print_debug(t_data *g)
 		g->x_side,
 		g->y_side,
 		g->wall,
-		g->height);
+		g->side,
+		g->height,
+		g->key,
+		g->move);
 	mlx_string_put(g->mlx, g->win, 10, 10, 0, result);
 }
 

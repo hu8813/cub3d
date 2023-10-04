@@ -91,7 +91,7 @@ typedef struct s_data
 	char	p_direction;
 	int		key;
 	int		move;
-	char	rotate[3];
+	int		rotate[3];
 	int		f_color[3];
 	int		c_color[3];
 	t_img	*pic;

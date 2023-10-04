@@ -23,9 +23,9 @@ static int	key_pressed(int key, t_data *g)
 		g->move = key;
 	}
 	else if (key == XK_Left)
-		g->rotate[0] = '1';
+		g->rotate[0] = XK_Left;
 	else if (key == XK_Right)
-		g->rotate[2] = '1';
+		g->rotate[2] = XK_Right;
 	g->key = key;
 	return (0);
 }

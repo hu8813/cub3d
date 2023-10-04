@@ -113,12 +113,12 @@ void	handle_key(int key, t_data *g, double temp)
 		go(g, g->y - g->x_dir * SPEED / 2, g->x + g->y_dir * SPEED / 2);
 	else if (key == XK_d)
 		go(g, g->y + g->x_dir * SPEED / 2, g->x - g->y_dir * SPEED / 2);
-	if (g->rotate[2] == '1' && (key == XK_Right))
+	if (g->rotate[2] == XK_Right && (key == XK_Right))
 	{
 		g->x_dir = g->x_dir * cos(LR_ANGLE) - g->y_dir * sin(LR_ANGLE);
 		g->y_dir = temp * sin(LR_ANGLE) + g->y_dir * cos(LR_ANGLE);
 	}
-	else if (g->rotate[0] == '1' && (key == XK_Left))
+	else if (g->rotate[0] == XK_Left && (key == XK_Left))
 	{
 		g->x_dir = g->x_dir * cos(-LR_ANGLE) - g->y_dir * sin(-LR_ANGLE);
 		g->y_dir = temp * sin(-LR_ANGLE) + g->y_dir * cos(-LR_ANGLE);

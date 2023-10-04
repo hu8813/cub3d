@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:17:13 by eelasam           #+#    #+#             */
-/*   Updated: 2023/09/30 21:32:53 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/04 18:24:49 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 /* This function conducts a flood-fill operation on the map to ensure its
 walls are closed and no spaces leak out of the map boundaries. If the fill
 hits the edge of the map or an open space, the map is marked as invalid. */
-void	flood_fill(char **mapcopy, size_t i, size_t j, int *err)
+void	flood_fill(char **mapcopy, int i, int j, int *err)
 {
-	if (i < 0 || j < 0 || !mapcopy[i] || (j >= ft_strlen(mapcopy[i]))
+	if (i < 0 || j < 0 || !mapcopy[i] || (j >= (int)ft_strlen(mapcopy[i]))
 		|| (mapcopy[i][j] && mapcopy[i][j] == ' '))
 	{
 		*err = 1;

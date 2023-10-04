@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 06:57:31 by eelasam           #+#    #+#             */
-/*   Updated: 2023/10/03 09:55:43 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/04 18:25:03 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int			ft_isspace(int c);
 int			check_overflow(char *str, int num);
 int			get_color(char *s, int rgb[3], int *k);
 int			pre_check(char *s);
-void		flood_fill(char **mapcopy, size_t i, size_t j, int *exit);
+void		flood_fill(char **mapcopy, int i, int j, int *exit);
 int			check_valid_route(char **map, char *str);
 int			put_texture(t_data *g, float start, int line, t_img *texture);
 void		handle_key(int key, t_data *g, double temp);

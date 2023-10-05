@@ -129,7 +129,7 @@ int	render(void *param)
 	g->pic = ft_create_img(g, g->width, g->width, 0);
 	if (!g->pic)
 		ft_error("Mlx init img failed", g);
-	set_colors(g);
+	set_floor_ceil_color(g);
 	raycast_columns(g);
 	if (g->pic->img)
 	{

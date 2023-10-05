@@ -61,7 +61,7 @@ void	set_pos(t_data *g)
 
 /* Initializes the color addrfer for the ceiling and floor based on the colors
 defined in the game state `t_data *g`. */
-void	set_colors(t_data *g)
+void	set_floor_ceil_color(t_data *g)
 {
 	int	i;
 

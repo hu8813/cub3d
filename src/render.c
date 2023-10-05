@@ -47,10 +47,10 @@ static void	draw(t_data *g, int x)
 	if (g->wall < 0.03)
 		return ;
 	line = (int)(g->height / g->wall);
-	start = -line / 2 + g->height / 2;
+	start = g->height / 2 - line / 2;
 	if (start < 0)
 		start = 0;
-	end = line / 2 + g->height / 2;
+	end = g->height / 2 + line / 2;
 	if (end >= g->height)
 		end = g->height - 1;
 	draw_ceiling_and_floor_color(g, x, start);

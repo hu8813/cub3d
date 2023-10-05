@@ -19,9 +19,9 @@ the ray hits a wall to pick the correct texture side. */
 int	put_texture(t_data *g, float start, int line, t_img *texture)
 {
 	int		color;
-	double	x_text;
-	double	x_wall;
-	double	y_text;
+	float	x_text;
+	float	x_wall;
+	float	y_text;
 
 	if (g->x_ray > 0 && !g->side)
 		texture = g->east;
@@ -34,7 +34,7 @@ int	put_texture(t_data *g, float start, int line, t_img *texture)
 	else
 		x_wall = g->x + g->wall * g->x_ray;
 	x_wall -= floor((x_wall));
-	x_text = (int)(x_wall * (double)(texture->width));
+	x_text = (int)(x_wall * (float)(texture->width));
 	if (g->side == 0 && g->x_ray > 0)
 		x_text = texture->width - x_text - 1;
 	else if (g->side == 1 && g->y_ray < 0)

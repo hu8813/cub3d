@@ -86,7 +86,7 @@ void	set_colors(t_data *g)
 
 /* Modifies the player's position in the game state `t_data *g` based on the
 proposed movements in the x and y directions (`newX` and `newy`). */
-static void	go(t_data *g, double newy, double newX)
+static void	go(t_data *g, float newy, float newX)
 {
 	if ((int)newy >= 0 && g->map[(int)(newy)])
 	{
@@ -103,7 +103,7 @@ static void	go(t_data *g, double newy, double newX)
 
 /* Handles player movement and rotation based on the key pressed. Updates
 the player's position and direction in the game state `t_data *g`. */
-void	handle_key(int key, t_data *g, double temp)
+void	handle_key(int key, t_data *g, float temp)
 {
 	if ((g->move == XK_w || key == XK_w) && g->y)
 		go(g, g->y + g->y_dir * SPEED, g->x + g->x_dir * SPEED);

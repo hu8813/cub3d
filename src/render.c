@@ -54,12 +54,9 @@ static void	draw(t_data *g, int x)
 	if (end >= g->height)
 		end = g->height - 1;
 	draw_ceiling_and_floor_color(g, x, start);
-	while (start < end)
-	{
-		g->pic->addr[(g->pic->width * start) + x] = put_texture(g, start, line,
-				g->south);
-		start++;
-	}
+	while (++start < end)
+		g->pic->addr[(g->pic->width * start) + x]
+			= put_texture(g, start, line, g->south);
 }
 
 /*Uses ray casting algorithms to calculate where rays intersect with map

@@ -6,7 +6,7 @@
 /*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:13:36 by huaydin           #+#    #+#             */
-/*   Updated: 2023/10/05 21:03:02 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/05 21:10:18 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ int	put_texture(t_data *g, float start, int line, t_img *texture)
 		x_wall = g->x + g->wall * g->x_ray;
 	x_wall = x_wall - (int) x_wall;
 	x_text = (int)(x_wall * (float)(texture->width));
-	if (g->side == 0 && g->x_ray < 0)
-		x_text = texture->width - x_text - 1;
-	else if (g->side == 1 && g->y_ray > 0)
+	if ((g->side == 0 && g->x_ray < 0) || (g->side == 1 && g->y_ray > 0))
 		x_text = texture->width - x_text - 1;
 	color = ((int)start << 8) - (g->height << 7) + (line << 7);
 	y_text = ((color * texture->height) / line) >> 8;

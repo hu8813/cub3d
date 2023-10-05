@@ -116,7 +116,6 @@ int			calculate_dda(t_data *cub);
 t_img		*ft_create_img(t_data *cub, int width, int height, int x);
 int			render(void *param);
 void		set_pos(t_data *cub);
-void		set_floor_ceil_color(t_data *cub);
 int			ft_exit(t_data *cub);
 void		ft_free_all(char **s, char *s1, char *s2, char *s3);
 void		ft_error(char *errorcode, t_data *data);

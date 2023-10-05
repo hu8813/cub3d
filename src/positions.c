@@ -59,29 +59,34 @@ void	set_pos(t_data *g)
 	}
 }
 
-/* Initializes the color addrfer for the ceiling and floor based on the colors
-defined in the game state `t_data *g`. */
-void	set_floor_ceil_color(t_data *g)
+void	print_debug(t_data *g)
 {
-	int	i;
+	char	result[1000];
 
-	i = 0;
-	if (!g)
-		return ;
-	while (i < (g->width * g->height) / 2)
-	{
-		g->pic->addr[i] = g->c_color[0] << 16;
-		g->pic->addr[i] += g->c_color[1] << 8;
-		g->pic->addr[i] += g->c_color[2];
-		i++;
-	}
-	while (i < g->width * g->height)
-	{
-		g->pic->addr[i] = g->f_color[0] << 16;
-		g->pic->addr[i] += g->f_color[1] << 8;
-		g->pic->addr[i] += g->f_color[2];
-		i++;
-	}
+	sprintf(result,
+		"x:%f y:%f x_dir:%f y_dir:%f x_map:%d y_map:%d x_step:%d y_step:%d \
+		x_ray:%f y_ray:%f x_delta:%f y_delta:%f x_side:%f \
+		y_side:%f wall:%f side: %d, height:%d, key:%d, move:%d",
+		g->x,
+		g->y,
+		g->x_dir,
+		g->y_dir,
+		g->x_map,
+		g->y_map,
+		g->x_step,
+		g->y_step,
+		g->x_ray,
+		g->y_ray,
+		g->x_delta,
+		g->y_delta,
+		g->x_side,
+		g->y_side,
+		g->wall,
+		g->side,
+		g->height,
+		g->key,
+		g->move);
+	mlx_string_put(g->mlx, g->win, 10, 10, 0, result);
 }
 
 /* Modifies the player's position in the game state `t_data *g` based on the

@@ -45,7 +45,6 @@ ft_calloc, ft_putendl_fd, ft_substr, ft_strdup, ft_strjoin */
 
 typedef enum e_error_codes
 {
-	SUCCESS = 0,
 	ERR_FILE_NOT_FOUND,
 	ERR_FILE_READ,
 	ERR_INVALID_TEXTURE,
@@ -128,5 +127,6 @@ void		flood_fill(char **mapcopy, int i, int j, int *exit);
 int			check_valid_route(char **map, char *str);
 int			put_texture(t_data *g, float start, int line, t_img *texture);
 void		handle_key(int key, t_data *g, float temp);
+void		print_debug(t_data *g);
 
 #endif

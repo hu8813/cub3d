@@ -12,7 +12,8 @@
 
 #include "../inc/cub3D.h"
 
-static void	draw_ceiling_floor(t_data *g, int x, int start)
+/*Draws the floor and ceiling color */
+static void	draw_ceiling_and_floor_color(t_data *g, int x, int start)
 {
 	int	t;
 
@@ -52,7 +53,7 @@ static void	draw(t_data *g, int x)
 	end = line / 2 + g->height / 2;
 	if (end >= g->height)
 		end = g->height - 1;
-	draw_ceiling_floor(g, x, start);
+	draw_ceiling_and_floor_color(g, x, start);
 	while (start < end)
 	{
 		g->pic->addr[(g->pic->width * start) + x] = put_texture(g, start, line,
@@ -117,6 +118,7 @@ int	render(void *param)
 	t_data	*g;
 
 	g = (t_data *)param;
+	print_debug(g);
 	g->pic = ft_create_img(g, g->width, g->width, 0);
 	if (!g->pic)
 		ft_error("Mlx init img failed", g);

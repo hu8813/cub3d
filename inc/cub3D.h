@@ -41,7 +41,7 @@ ft_calloc, ft_putendl_fd, ft_substr, ft_strdup, ft_strjoin */
 # define LR_ANGLE 0.03
 
 /* speed of the movement of the player, when w, a, s or d is pressed*/
-# define SPEED 0.06
+# define SPEED 0.05
 
 typedef enum e_error_codes
 {

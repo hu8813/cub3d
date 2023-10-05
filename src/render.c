@@ -12,33 +12,32 @@
 
 #include "../inc/cub3D.h"
 
-static void draw_ceiling_floor(t_data *g, int x, int start)
+static void	draw_ceiling_floor(t_data *g, int x, int start)
 {
-    int t;
-	
+	int	t;
+
 	t = 0;
-     while (t < start)
-    {
-        g->pic->addr[(g->pic->width * t) + x] = g->c_color[0] << 16;
-        g->pic->addr[(g->pic->width * t) + x] += g->c_color[1] << 8;
-        g->pic->addr[(g->pic->width * t) + x] += g->c_color[2];
-        t++;
-    }
-    
-    while (t < g->height)
-    {
-        g->pic->addr[(g->pic->width * t) + x] = g->f_color[0] << 16;
-        g->pic->addr[(g->pic->width * t) + x] += g->f_color[1] << 8;
-        g->pic->addr[(g->pic->width * t) + x] += g->f_color[2];
-        t++;
-    }
+	while (t < start)
+	{
+		g->pic->addr[(g->pic->width * t) + x] = g->c_color[0] << 16;
+		g->pic->addr[(g->pic->width * t) + x] += g->c_color[1] << 8;
+		g->pic->addr[(g->pic->width * t) + x] += g->c_color[2];
+		t++;
+	}
+	while (t < g->height)
+	{
+		g->pic->addr[(g->pic->width * t) + x] = g->f_color[0] << 16;
+		g->pic->addr[(g->pic->width * t) + x] += g->f_color[1] << 8;
+		g->pic->addr[(g->pic->width * t) + x] += g->f_color[2];
+		t++;
+	}
 }
 
 /*Draws the walls and other world elements onto the screen based on
 the results of ray casting. This determines the vertical slice of
 the texture that should be displayed for each column
 of pixels on the screen. */
-static void draw(t_data *g, int x)
+static void	draw(t_data *g, int x)
 {
 	int	line;
 	int	start;
@@ -47,19 +46,19 @@ static void draw(t_data *g, int x)
 	if (g->wall < 0.03)
 		return ;
 	line = (int)(g->height / g->wall);
-    start = -line / 2 + g->height / 2;
-    if (start < 0)
-        start = 0;
-    end = line / 2 + g->height / 2;
-    if (end >= g->height)
-        end = g->height - 1;
-    draw_ceiling_floor(g, x, start);
-    while (start < end)
-    {
-        g->pic->addr[(g->pic->width * start) + x]
-			= put_texture(g, start, line, g->south);
-        start++;
-    }
+	start = -line / 2 + g->height / 2;
+	if (start < 0)
+		start = 0;
+	end = line / 2 + g->height / 2;
+	if (end >= g->height)
+		end = g->height - 1;
+	draw_ceiling_floor(g, x, start);
+	while (start < end)
+	{
+		g->pic->addr[(g->pic->width * start) + x] = put_texture(g, start, line,
+				g->south);
+		start++;
+	}
 }
 
 /*Uses ray casting algorithms to calculate where rays intersect with map

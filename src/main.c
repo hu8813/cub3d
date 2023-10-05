@@ -12,7 +12,7 @@
 
 #include "../inc/cub3D.h"
 
-/* Callback function for when a key is pressed. Updates the game's 
+/* Callback function for when a key is pressed. Updates the game's
 state based on which key was pressed (e.g., movement or rotation).*/
 static int	key_pressed(int key, t_data *g)
 {
@@ -30,16 +30,18 @@ static int	key_pressed(int key, t_data *g)
 	return (0);
 }
 
-/* Callback function for when a key is released. Resets the game's 
+/* Callback function for when a key is released. Resets the game's
 state based on which key was released.*/
 static int	key_released(int key, t_data *g)
 {
+	g->key = 0;
+	if (key == XK_Left)
+		g->rotate[0] = 0;
+	if (key == XK_Right)
+		g->rotate[2] = 0;
 	if (key == XK_w || key == XK_a || key == XK_s || key == XK_d)
 	{
 		g->move = 0;
-		if (g->key == XK_w || g->key == XK_a || g->key == XK_s
-			|| g->key == XK_d)
-			g->key = 0;
 		if (g->rotate[0])
 			g->key = g->rotate[0];
 		if (g->rotate[2])
@@ -47,16 +49,6 @@ static int	key_released(int key, t_data *g)
 	}
 	else if (g->move)
 		g->key = g->move;
-	if (key == XK_Left)
-	{	g->rotate[0] = 0;
-		if (g->key== XK_Left)
-			g->key=0;	
-	}
-	if (key == XK_Right)
-	{	g->rotate[2] = 0;
-		if (g->key == XK_Right)	
-			g->key=0;	
-	}
 	return (0);
 }
 
@@ -121,8 +113,8 @@ int	main(int argc, char **argv)
 {
 	t_data	g;
 
-	if (argc != 2 || ft_strlen(argv[1]) < 4
-		|| (!ft_strncmp(argv[1] + ft_strlen(argv[1]) - 5, ".cub", 4)))
+	if (argc != 2 || ft_strlen(argv[1]) < 4 || (!ft_strncmp(argv[1]
+				+ ft_strlen(argv[1]) - 5, ".cub", 4)))
 	{
 		ft_putendl_fd("Error\nUsage: ./cub3D maps/map1.cub", 2);
 		exit(1);

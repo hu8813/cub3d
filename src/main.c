@@ -19,9 +19,7 @@ static int	key_pressed(int key, t_data *g)
 	if (key == XK_Escape)
 		ft_exit(g);
 	if (key == XK_w || key == XK_a || key == XK_s || key == XK_d)
-	{
 		g->move = key;
-	}
 	else if (key == XK_Left)
 		g->rotate[0] = XK_Left;
 	else if (key == XK_Right)

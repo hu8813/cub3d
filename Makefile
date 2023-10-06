@@ -41,7 +41,7 @@ fclean: clean
 re: fclean all
 
 test: all
-	./cub3D maps/map_kaya_ehab.cub
+	./cub3D maps/map1.cub
 
 .PHONY: all clean fclean re
 

@@ -33,7 +33,7 @@ int	put_texture(t_data *g, float start, int line, t_img *texture)
 		x_wall = g->y + g->wall * g->y_ray;
 	else
 		x_wall = g->x + g->wall * g->x_ray;
-	x_wall = x_wall - (int) x_wall;
+	x_wall -= floor(x_wall);//x_wall - (int) x_wall;
 	x_text = (int)(x_wall * (float)(texture->width));
 	if ((g->side == 0 && g->x_ray < 0) || (g->side == 1 && g->y_ray > 0))
 		x_text = texture->width - x_text - 1;

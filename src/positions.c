@@ -86,7 +86,7 @@ void	print_debug(t_data *g)
 		g->height,
 		g->key,
 		g->move);
-	mlx_string_put(g->mlx, g->win, 10, 10, 0, result);
+	mlx_string_put(g->mlx, g->win, 10, 10, 0xFFFFFF, result);
 }
 
 /* Modifies the player's position in the game state `t_data *g` based on the

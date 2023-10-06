@@ -36,7 +36,7 @@ void	flood_fill(char **mapcopy, int i, int j, int *err)
 other characters (not walls or spaces) to '0' and then invoking a
 flood-fill from these positions. If the flood-fill hits an open space,
 it means there's a gap in the walls and the map is invalid. */
-int	check_valid_route(char **map, char *str)
+int	check_valid_route(char **map)
 {
 	size_t	i;
 	size_t	j;
@@ -55,7 +55,7 @@ int	check_valid_route(char **map, char *str)
 				map[i][j] = '0';
 				flood_fill(map, i, j, &err);
 				if (err == 1)
-					return (ft_free_all(map, str, NULL, NULL), -1);
+					return (ft_free_all(map, NULL, NULL, NULL), -1);
 			}
 		}
 	}

@@ -124,7 +124,7 @@ int			check_overflow(char *str, int num);
 int			get_color(char *s, int rgb[3], int *k);
 int			pre_check(char *s);
 void		flood_fill(char **mapcopy, int i, int j, int *exit);
-int			check_valid_route(char **map, char *str);
+int			check_valid_route(char **map);
 int			put_texture(t_data *g, float start, int line, t_img *texture);
 void		handle_key(int key, t_data *g, float temp);
 void		print_debug(t_data *g);

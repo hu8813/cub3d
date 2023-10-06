@@ -51,7 +51,7 @@ int	check_map(t_data *g, char *pos, int i, int count)
 	tmp = ft_split(g->tmp_map, '\n');
 	if (!tmp && g->tmp_map)
 		return (-1);
-	return (check_valid_route(tmp, g->tmp_map));
+	return (check_valid_route(tmp));
 }
 
 // Hilfsfunktion

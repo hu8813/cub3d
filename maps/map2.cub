@@ -1,7 +1,7 @@
-NO ./img/weird.xpm
-SO ./img/metal.xpm
-WE ./img/rock.xpm
-EA ./img/plank.xpm
+NO ./img/east3.xpm
+SO ./img/south3.xpm
+WE ./img/huaydin.xpm
+EA ./img/eelasam.xpm
 
 C 135,206,235
 F 34,139,34

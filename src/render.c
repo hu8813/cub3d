@@ -44,7 +44,7 @@ static void	draw(t_data *g, int x)
 	int	start;
 	int	end;
 
-	if (g->wall < 0.03)
+	if (g->wall < 0.05)
 		return ;
 	line = (int)(g->height / g->wall);
 	start = g->height / 2 - line / 2;

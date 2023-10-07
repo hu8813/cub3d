@@ -1,6 +1,6 @@
 NAME		= cub3D
 CC	  		= cc
-CFLAGS  	= -Wall -Wextra -Werror -MMD -Ofast -march=native
+CFLAGS  	= -Wall -Wextra -Werror -MMD #-Ofast -march=native
 #last 2 flags are only for optimization, makes the game faster
 
 MLX	 		= -lmlx -lXext -lX11 -lm

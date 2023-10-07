@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   put_img.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:13:36 by huaydin           #+#    #+#             */
-/*   Updated: 2023/10/05 21:10:18 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/06 16:42:41 by eelasam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,13 @@ static t_img	*init_new_img(t_data *g, int width, int height, int x)
 		ft_error("Malloc failed", g);
 	new->width = width;
 	new->height = height;
-	if (x == 1)
+	if (x == 'n')
 		new->img = load_image(g, g->no_path, &new->width, &new->height);
-	else if (x == 2)
+	else if (x == 'w')
 		new->img = load_image(g, g->we_path, &new->width, &new->height);
-	else if (x == 3)
+	else if (x == 'e')
 		new->img = load_image(g, g->ea_path, &new->width, &new->height);
-	else if (x == 4)
+	else if (x == 's')
 		new->img = load_image(g, g->so_path, &new->width, &new->height);
 	else if (g->mlx)
 		new->img = mlx_new_image(g->mlx, width, height);
@@ -106,8 +106,6 @@ t_img	*ft_create_img(t_data *g, int width, int height, int x)
 	int		bpp;
 	int		endian;
 
-	bpp = 32;
-	endian = 1;
 	if (!g)
 		return (0);
 	new = init_new_img(g, width, height, x);

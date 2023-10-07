@@ -33,7 +33,7 @@ static char	*get_texture(char *s, t_data *g, int *pos)
 		k--;
 	tmp = ft_substr(s, i, k - i + 1);
 	if (!tmp || ft_strlen(tmp) < 4
-		|| (!ft_strncmp(tmp + ft_strlen(tmp) - 5, ".xpm", 4)))
+		|| (ft_strncmp(tmp + ft_strlen(tmp) - 4, ".xpm", 4)))
 	{
 		g->error_code = ERR_INVALID_TEXTURE;
 		if (tmp)

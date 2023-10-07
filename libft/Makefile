@@ -26,7 +26,7 @@ OBJS		= $(SRCS:%.c=%.o)
 OBJS_BONUS	= $(SRCS_BONUS:%.c=%.o)
 CC          = cc
 CFLAGS      = -Wall -Wextra -Werror
-RM          = rm -f
+RM          = rm -rf
 LIBC		= ar rcs
 
 .PHONY:		all clean fclean re bonus

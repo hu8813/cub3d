@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:28:30 by eelasam           #+#    #+#             */
-/*   Updated: 2023/10/05 20:16:00 by huaydin          ###   ########.fr       */
+/*   Updated: 2023/10/06 16:37:41 by eelasam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,15 +107,47 @@ static void	raycast_columns(t_data *g)
 	}
 }
 
+/* for debugging uncomment 
+void	print_debug(t_data *g)
+{
+	char	result[1000];
+
+	sprintf(result,
+		"x:%f y:%f x_dir:%f y_dir:%f x_map:%d y_map:%d x_step:%d y_step:%d \
+		x_ray:%f y_ray:%f x_delta:%f y_delta:%f x_side:%f \
+		y_side:%f wall:%f side: %d, height:%d, key:%d, move:%d",
+		g->x,
+		g->y,
+		g->x_dir,
+		g->y_dir,
+		g->x_map,
+		g->y_map,
+		g->x_step,
+		g->y_step,
+		g->x_ray,
+		g->y_ray,
+		g->x_delta,
+		g->y_delta,
+		g->x_side,
+		g->y_side,
+		g->wall,
+		g->side,
+		g->height,
+		g->key,
+		g->move);
+	mlx_string_put(g->mlx, g->win, 10, 10, 0xFFFFFF, result);
+}
+*/
+
 /* The core rendering function that's invoked for every frame. It computes
 ray casting for each screen column, draws the results, and then displays
-the frame on the screen using MLX. Also handles some input events. */
+the frame on the screen using MLX. Also handles some input events.
+to show variables on screen: print_debug(); */
 int	render(void *param)
 {
 	t_data	*g;
 
 	g = (t_data *)param;
-	print_debug(g);
 	g->pic = ft_create_img(g, g->width, g->width, 0);
 	if (!g->pic)
 		ft_error("Mlx init img failed", g);

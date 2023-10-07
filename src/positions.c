@@ -6,35 +6,11 @@
 /*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:30:27 by eelasam           #+#    #+#             */
-/*   Updated: 2023/10/03 17:37:08 by eelasam          ###   ########.fr       */
+/*   Updated: 2023/10/06 16:36:42 by eelasam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
-
-/* Determines the starting position of the player on the map using the position
-character stored in the game state `t_data *g`. It then initializes the player's
-x and y coordinates in the game state. */
-void	get_position(char **map, t_data *g)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j] && map[i][j] != g->p_direction)
-			j++;
-		if (map[i][j] && map[i][j] == g->p_direction)
-		{
-			g->x = (j + 0.5);
-			g->y = (i + 0.5);
-		}
-		i++;
-	}
-	set_pos(g);
-}
 
 /* Sets the initial direction and view plane for the player based on
 the player's position character in the game state `t_data *g`. */
@@ -59,34 +35,28 @@ void	set_pos(t_data *g)
 	}
 }
 
-void	print_debug(t_data *g)
+/* Determines the starting position of the player on the map using the position
+character stored in the game state `t_data *g`. It then initializes the player's
+x and y coordinates in the game state. */
+void	get_position(char **map, t_data *g)
 {
-	char	result[1000];
+	int	i;
+	int	j;
 
-	sprintf(result,
-		"x:%f y:%f x_dir:%f y_dir:%f x_map:%d y_map:%d x_step:%d y_step:%d \
-		x_ray:%f y_ray:%f x_delta:%f y_delta:%f x_side:%f \
-		y_side:%f wall:%f side: %d, height:%d, key:%d, move:%d",
-		g->x,
-		g->y,
-		g->x_dir,
-		g->y_dir,
-		g->x_map,
-		g->y_map,
-		g->x_step,
-		g->y_step,
-		g->x_ray,
-		g->y_ray,
-		g->x_delta,
-		g->y_delta,
-		g->x_side,
-		g->y_side,
-		g->wall,
-		g->side,
-		g->height,
-		g->key,
-		g->move);
-	mlx_string_put(g->mlx, g->win, 10, 10, 0xFFFFFF, result);
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j] && map[i][j] != g->p_direction)
+			j++;
+		if (map[i][j] && map[i][j] == g->p_direction)
+		{
+			g->x = (j + 0.5);
+			g->y = (i + 0.5);
+		}
+		i++;
+	}
+	set_pos(g);
 }
 
 /* Modifies the player's position in the game state `t_data *g` based on the

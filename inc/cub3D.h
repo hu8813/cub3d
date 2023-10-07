@@ -21,7 +21,7 @@
 /* File Manipulation Functions: open (O_RDONLY) */
 # include <fcntl.h>
 
-/* sin, cos for trigonometric calculations */
+/* sin, cos, floor for trigonometric calculations */
 # include <math.h>
 
 /* malloc, free */
@@ -114,7 +114,6 @@ void		get_position(char **map, t_data *cub);
 int			calculate_dda(t_data *cub);
 t_img		*ft_create_img(t_data *cub, int width, int height, int x);
 int			render(void *param);
-void		set_pos(t_data *cub);
 int			ft_exit(t_data *cub);
 void		ft_free_all(char **s, char *s1, char *s2, char *s3);
 void		ft_error(char *errorcode, t_data *data);
@@ -127,6 +126,9 @@ void		flood_fill(char **mapcopy, int i, int j, int *exit);
 int			check_valid_route(char **map);
 int			put_texture(t_data *g, float start, int line, t_img *texture);
 void		handle_key(int key, t_data *g, float temp);
+
+/* for debugging, uncomment
 void		print_debug(t_data *g);
+*/
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 15:12:05 by eelasam           #+#    #+#             */
-/*   Updated: 2023/10/03 17:28:10 by eelasam          ###   ########.fr       */
+/*   Updated: 2023/10/06 16:40:48 by eelasam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ static int	init_game(t_data *g)
 	g->win = mlx_new_window(g->mlx, g->width, g->height, "cub3D");
 	if (!g->win)
 		return (0);
-	g->north = ft_create_img(g, 0, 0, 1);
-	g->west = ft_create_img(g, 0, 0, 2);
-	g->east = ft_create_img(g, 0, 0, 3);
-	g->south = ft_create_img(g, 0, 0, 4);
+	g->north = ft_create_img(g, 0, 0, 'n');
+	g->west = ft_create_img(g, 0, 0, 'w');
+	g->east = ft_create_img(g, 0, 0, 'e');
+	g->south = ft_create_img(g, 0, 0, 's');
 	if (!g->north || !g->east || !g->south || !g->west)
 		return (0);
 	mlx_hook(g->win, 2, 1L, &key_pressed, g);
@@ -111,8 +111,8 @@ int	main(int argc, char **argv)
 {
 	t_data	g;
 
-	if (argc != 2 || ft_strlen(argv[1]) < 4 || (!ft_strncmp(argv[1]
-				+ ft_strlen(argv[1]) - 5, ".cub", 4)))
+	if (argc != 2 || ft_strlen(argv[1]) < 4 || (ft_strncmp(argv[1]
+				+ ft_strlen(argv[1]) - 4, ".cub", 4)))
 	{
 		ft_putendl_fd("Error\nUsage: ./cub3D maps/map1.cub", 2);
 		exit(1);

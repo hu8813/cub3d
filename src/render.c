@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eelasam <eelasam@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: huaydin <huaydin@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:28:30 by eelasam           #+#    #+#             */
-/*   Updated: 2023/10/06 16:37:41 by eelasam          ###   ########.fr       */
+/*   Updated: 2023/10/07 20:00:56 by huaydin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static void	raycast_columns(t_data *g)
 	}
 }
 
-/* for debugging uncomment 
+// this is only for debugging, will be removed when pushed 
 void	print_debug(t_data *g)
 {
 	char	result[1000];
@@ -137,17 +137,17 @@ void	print_debug(t_data *g)
 		g->move);
 	mlx_string_put(g->mlx, g->win, 10, 10, 0xFFFFFF, result);
 }
-*/
 
 /* The core rendering function that's invoked for every frame. It computes
 ray casting for each screen column, draws the results, and then displays
 the frame on the screen using MLX. Also handles some input events.
-to show variables on screen: print_debug(); */
+to show variables on screen, put this line in function: print_debug(g); */
 int	render(void *param)
 {
 	t_data	*g;
 
 	g = (t_data *)param;
+	print_debug(g); // only for debugging, will be removed when pushed
 	g->pic = ft_create_img(g, g->width, g->width, 0);
 	if (!g->pic)
 		ft_error("Mlx init img failed", g);
